@@ -1,0 +1,35 @@
+{
+  "name": "myapp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@magidoc/plugin-svelte-marked": "^3.6.4",
+    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/kit": "^1.5.0",
+    "@types/marked": "^4.3.0",
+    "autoprefixer": "^10.4.7",
+    "aws-cdk": "^2.83.0",
+    "marked": "^4.3.0",
+    "postcss": "^8.4.14",
+    "postcss-load-config": "^4.0.1",
+    "svelte": "^3.54.0",
+    "svelte-heros-v2": "^0.6.6",
+    "svelte-preprocess": "^4.10.7",
+    "sveltekit-adapter-aws": "^4.5.1",
+    "tailwindcss": "^3.1.5",
+    "vite": "^4.2.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@popperjs/core": "^2.11.7",
+    "classnames": "^2.3.2",
+    "flowbite": "^1.6.5",
+    "flowbite-svelte": "^0.34.9",
+    "lodash": "^4.17.21"
+  }
+}
