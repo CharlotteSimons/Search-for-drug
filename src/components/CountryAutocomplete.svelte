@@ -1,5 +1,7 @@
 <script>
-import { debounce } from 'lodash';
+import pkg from 'lodash';
+const { debounce } = pkg;
+// import { debounce } from 'lodash';
 import { Input, Helper } from 'flowbite-svelte';
 
 export let selectedValue = ''

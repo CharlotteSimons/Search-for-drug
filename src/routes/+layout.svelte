@@ -2,6 +2,8 @@
   import "../app.postcss";
   import { Navbar, NavBrand } from 'flowbite-svelte'
   import { Footer, FooterCopyright, FooterLink, FooterLinkGroup, Badge } from "flowbite-svelte"
+  export const prerender = true;
+
 </script>
 
 <Navbar let:hidden let:toggle class="bg-[#FAFAFA] drop-shadow-md">
