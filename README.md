@@ -36,3 +36,19 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Local test for static files
+
+With `http-server`
+```
+brew install http-server
+
+npm run build
+http-server build
+```
+
+With `Docker`
+```
+docker build -t svelte:static-website -f Dockerfile .
+docker run -it --rm -p 8080:80 svelte:static-website
+```
