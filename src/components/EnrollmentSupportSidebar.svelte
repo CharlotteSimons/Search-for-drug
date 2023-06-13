@@ -1,7 +1,7 @@
 <script>
     import { Toast, Drawer, CloseButton, Input, Label, Textarea, Alert } from 'flowbite-svelte';
     import { sineIn } from 'svelte/easing';
-    import SearchAutoComplete from './SearchAutoComplete.svelte';
+    import SearchAutoComplete from '$components/SearchAutoComplete.svelte';
     import ApiButton from './ApiButton.svelte';
     import TrialSiteAutocomplete from './TrialSiteAutocomplete.svelte';
     
