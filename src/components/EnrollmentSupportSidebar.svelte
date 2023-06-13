@@ -1,7 +1,7 @@
 <script>
     import { Toast, Drawer, CloseButton, Input, Label, Textarea, Alert } from 'flowbite-svelte';
     import { sineIn } from 'svelte/easing';
-    import SearchAutoComplete from '$components/SearchAutoComplete.svelte';
+    import SearchAutocomplete from './SearchAutocomplete.svelte';
     import ApiButton from './ApiButton.svelte';
     import TrialSiteAutocomplete from './TrialSiteAutocomplete.svelte';
     
@@ -83,7 +83,7 @@
         <Label class="mt-3 mb-2">Preferred Trial Site*</Label>
         <TrialSiteAutocomplete utn={utn} bind:selectedValue={selectedSite}/>
         <Label class="mt-3 mb-2">Diagnosis*</Label>
-        <SearchAutoComplete bind:selectedValue={selectedCondition}/>
+        <SearchAutocomplete bind:selectedValue={selectedCondition}/>
         <Label class="mt-3 mb-2">What would you like our help with?</Label>
         <Textarea
           class="h-40 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
