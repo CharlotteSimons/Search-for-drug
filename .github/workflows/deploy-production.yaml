@@ -1,0 +1,16 @@
+name: Deploy PRODUCTION
+run-name: Deploy PRODUCTION  ref=${{ github.ref_name }}
+
+on: 
+  workflow_dispatch:
+
+env:
+  STACK_NAME: trialsearch-ai
+  ENVIRONMENT: production
+
+jobs:
+  BuildDeploy-Develop:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
