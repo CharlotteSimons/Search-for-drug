@@ -1,5 +1,4 @@
 node_modules
-package-lock.json
 static/fonts
 .svelte-kit
 *.DS_Store
