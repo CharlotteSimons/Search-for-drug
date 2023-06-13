@@ -28,8 +28,8 @@ jobs:
         ssh-key: ${{ secrets.CICD_SSH_KEY }}
         path: './.workflow-templates'
     
-    - name: Copy debug script
-      run: cp ./.workflow-templates/frontend-sveltekit/deploy-frontend-sveltekit.sh ./deploy-frontend-sveltekit.sh
+    - name: Copy deploy script
+      run: cp ./.workflow-templates/frontend-sveltekit/deploy-frontend-sveltekit.sh ${{ env.GITHUB_WORKSPACE }}/deploy-frontend-sveltekit.sh
 
     - name: Send notification on start
       uses: "./.workflow-templates/notifications/send-notification-to-teams-channel"
@@ -49,6 +49,7 @@ jobs:
       with:
         stack-name: ${{ env.STACK_NAME }}
         environment: ${{ env.ENVIRONMENT }}
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
         node-version: ${{ vars.NODE_VERSION }}
         aws-account-id: ${{ secrets.AWS_DEVELOP_ACCOUNT_ID }}    
         aws-region: ${{ vars.AWS_REGION }}
