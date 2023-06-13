@@ -4,6 +4,10 @@ run-name: Deploy DEVELOP  ref=${{ github.ref_name }}
 on: 
   workflow_dispatch:
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
 env:
   STACK_NAME: trail-search-ai
   ENVIRONMENT: develop
@@ -31,8 +35,8 @@ jobs:
       uses: "./.workflow-templates/notifications/send-notification-to-teams-channel"
       with:
         webhook: ${{ secrets.NOTIFICATION_WEBHOOK }}
-        title: "[started] ${{ github.event.inputs.application }} to ${{ env.ENVIRONMENT}}"
-        summary: "Manual deployment of '${{ github.event.inputs.application }}' to ${{ env.ENVIRONMENT}} environment"
+        title: "[started] ${{ env.STACK_NAME }} to ${{ env.ENVIRONMENT}}"
+        summary: "Manual deployment of '${{ env.STACK_NAME }}' to ${{ env.ENVIRONMENT}} environment"
         status: "started"
         trigger: "${{ github.event.action }} by ${{ github.triggering_actor }}"
         git-repo: "https://github.com/${{ github.repository }}"
@@ -55,8 +59,8 @@ jobs:
       uses: "./.workflow-templates/notifications/send-notification-to-teams-channel"
       with:
         webhook: ${{ secrets.NOTIFICATION_WEBHOOK }}
-        title: "[${{ job.status }}] ${{ github.event.inputs.application }} to ${{ env.ENVIRONMENT}}"
-        summary: "Manual deployment of '${{ github.event.inputs.application }}' to ${{ env.ENVIRONMENT}} environment"
+        title: "[${{ job.status }}] ${{ env.STACK_NAME }} to ${{ env.ENVIRONMENT}}"
+        summary: "Manual deployment of '${{ env.STACK_NAME }}' to ${{ env.ENVIRONMENT}} environment"
         status: "${{ job.status }}"
         trigger: "${{ github.event.action }} by ${{ github.triggering_actor }}"
         git-repo: "https://github.com/${{ github.repository }}"
