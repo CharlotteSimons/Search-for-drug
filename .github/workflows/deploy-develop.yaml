@@ -28,8 +28,14 @@ jobs:
         ssh-key: ${{ secrets.CICD_SSH_KEY }}
         path: './.workflow-templates'
     
+    - name: Debug ls
+      run: |
+        ls -lha
+        ls -lha ./.workflow-templates
+        ls -lha ./.workflow-templates/frontend-sveltekit
+    
     - name: Copy deploy script
-      run: cp ./.workflow-templates/frontend-sveltekit/deploy-frontend-sveltekit.sh ${{ env.GITHUB_WORKSPACE }}/deploy-frontend-sveltekit.sh
+      run: cp ./.workflow-templates/frontend-sveltekit/deploy-frontend-sveltekit.sh ./deploy-frontend-sveltekit.sh
 
     - name: Send notification on start
       uses: "./.workflow-templates/notifications/send-notification-to-teams-channel"
