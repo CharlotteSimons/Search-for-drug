@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  STACK_NAME: trialsearch-ai
+  STACK_NAME: trail-search-ai
   ENVIRONMENT: develop
 
 jobs:
