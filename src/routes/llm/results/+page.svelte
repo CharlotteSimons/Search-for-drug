@@ -27,9 +27,10 @@
       studies(where: {id_IN: ["${all_ids}"]}, options: {sort: {phase: DESC}}) {
         title
         overall_status
-          phase
-          interventions
-          id
+        reports_as_closed
+        phase
+        interventions
+        id
         }
       }`
       isLoading = true;
