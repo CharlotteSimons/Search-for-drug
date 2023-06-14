@@ -25,7 +25,8 @@
       all_ids = all_ids.join('","')
       let queryStr = `query {
       studies(where: {id_IN: ["${all_ids}"]}, options: {sort: {phase: DESC}}) {
-          title
+        title
+        overall_status
           phase
           interventions
           id
