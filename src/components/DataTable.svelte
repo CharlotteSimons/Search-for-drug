@@ -104,7 +104,7 @@
 <Table striped={true} divClass="relative w-full max-w-full" shadow>
   <TableHead theadClass="text-md bg-white">
     {#each columns as column, index}
-      {#if column !== 'id'}
+      {#if column !== 'id' && column !== 'reports_as_closed'}
       <TableHeadCell>
         <div class="flex align-middle">
         {toSentenceCase(column)}
@@ -146,17 +146,24 @@
         <!-- Status -->
           {:else if column == 'overall_status'}
             <TableBodyCell tdClass="px-6 py-4 font-medium">
-              {#if row[column] == 'Recruiting'}
-                <span class="font-bold text-blue-500">{row[column]}</span>
-              {:else}
-                {row[column]}
-              {/if}
+              <div>
+                {#if row[column] == 'Recruiting'}
+                  <p class="font-bold text-blue-500">{row[column]}</p>
+                {:else}
+                  {row[column]}
+                {/if}
+                <!-- Reports as closed -->
+                {#if row['reports_as_closed'] && row['reports_as_closed'] > 0}
+                  <p class="text-xs text-red-800">{row['reports_as_closed']} reports as closed</p>
+                {/if}
+              </div>
           </TableBodyCell>
           <!-- Phase -->
           {:else if column == 'phase'}
           <TableBodyCell tdClass="px-6 font-medium">{cleanPhase(row[column])}</TableBodyCell>
           <!-- Title -->
           {:else if column == 'id'}
+          {:else if column == 'reports_as_closed'}
           {:else if column == 'title'}
           <TableBodyCell tdClass="px-6 py-4 font-medium underline hover:cursor-pointer" on:click={window.location.href = `/llm/study-details?utn=${row['id']}&uuid=${uuid}`}>{row[column]}</TableBodyCell>
           <!-- URL -->

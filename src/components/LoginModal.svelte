@@ -44,7 +44,7 @@
     <ApiButton onClick={() => loginFunction()} text={"Login to your account"} loading={loading} class="w-full1" />
     <div class="flex items-stretch text-sm font-medium text-gray-500 dark:text-gray-300">
         <!-- <span>Not registered? <a href="/" class="text-blue-700 hover:underline dark:text-blue-500">Sign up</a></span> -->
-        <a href="mailto:beta@mytomorrows.com" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost password?</a>
+        <a on:click={() => window.location.href = '/forgot-password'} class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Forgot password?</a>
       </div>
   </form>
 </Modal>

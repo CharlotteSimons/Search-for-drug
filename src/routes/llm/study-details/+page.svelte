@@ -5,8 +5,10 @@
   import LlmCriteria from '../../../components/LLMCriteria.svelte';
   import EnrollmentSupportSidebar from '../../../components/EnrollmentSupportSidebar.svelte';
   import DataTable from '../../../components/DataTable.svelte';
+  import ReportAsClosedModal from '../../../components/ReportAsClosedModal.svelte';
 
   let hidden1 = true; 
+  let ReportModalOpen = false;
 
   const uuid = $page.url.searchParams.get('uuid');
   const utn = $page.url.searchParams.get('utn');
@@ -21,11 +23,13 @@
       studies(where: {id: "${utn}"}) {
           id
           overall_status
+          reports_as_closed
           interventions
           title
           study_type
           phase
           primary_purpose
+          protocol_type
           conditions
           start_date
           end_date
@@ -70,8 +74,8 @@
     });
 
 </script>
-<main>
-    <section class="w-full p-6 mb-6 mt-6 bg-white">
+<main class="max-w-1280">
+    <section class="w-full p-6 mt-6 bg-white">
         {#if isLoading}
             <Skeleton class="mb-4"/>
         {:else}
@@ -79,9 +83,15 @@
             <h1 class="text-3xl font-bold text-blue-600">{data.title}</h1>
         </div>
         {/if}
-
     </section>
-    <section class="w-full p-6 mb-6 bg-white">
+
+    {#if !isLoading && data.reports_as_closed && data.reports_as_closed > 0}
+    <div class="bg-red-800 w-full px-4 py-1 text-white">
+        <p>{data.protocol_type} was reported as closed by {data.reports_as_closed} myTomorrows user(s)</p>
+    </div>
+    {/if}
+
+    <section class="w-full p-6 mb-6 mt-6 bg-white">
         <h2 class="text-2xl font-bold mb-4 text-blue-600">Study Details</h2>
         {#if isLoading}
             <Skeleton class="mb-4"/>
@@ -96,9 +106,10 @@
                 </div>
                 <div class="w-2/3">
                     <div class="mb-2">{data.study_type}</div>
-                    <div class="mb-2">{data.overall_status}</div>
+                    <div class="mb-2">{data.overall_status} <span class="text-red-800 cursor-pointer" on:click={() => (ReportModalOpen = true)}>Incorrect?</span></div>
                     <div class="mb-2">{data.interventions.join(', ')}</div>
                     <div class="mb-2">{data.phase}</div>
+                    <ReportAsClosedModal utn={utn} bind:ReportModalOpen={ReportModalOpen} />
                 </div>
             </div>
             <div class="flex w-1/2" id="col2">

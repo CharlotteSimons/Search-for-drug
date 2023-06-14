@@ -25,10 +25,12 @@
       all_ids = all_ids.join('","')
       let queryStr = `query {
       studies(where: {id_IN: ["${all_ids}"]}, options: {sort: {phase: DESC}}) {
-          title
-          phase
-          interventions
-          id
+        title
+        overall_status
+        reports_as_closed
+        phase
+        interventions
+        id
         }
       }`
       isLoading = true;
