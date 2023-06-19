@@ -4,13 +4,66 @@ run-name: Deploy PRODUCTION  ref=${{ github.ref_name }}
 on: 
   workflow_dispatch:
 
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
 env:
   STACK_NAME: trialsearch-ai
   ENVIRONMENT: production
 
 jobs:
-  BuildDeploy-Develop:
+  BuildDeploy-Production:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    
+    - name: Checkout CICD templates
+      uses: actions/checkout@v3
+      with:
+        repository: myTomorrows/Github-Actions
+        # TODO: replace ref with master branch
+        ref: feature/frontend-angular
+        ssh-key: ${{ secrets.CICD_SSH_KEY }}
+        path: './.workflow-templates'
+    
+    - name: Copy deploy script
+      run: cp ./.workflow-templates/frontend-sveltekit/deploy-frontend-sveltekit.sh ./deploy-frontend-sveltekit.sh
+
+    - name: Send notification on start
+      uses: "./.workflow-templates/notifications/send-notification-to-teams-channel"
+      with:
+        webhook: ${{ secrets.NOTIFICATION_WEBHOOK }}
+        title: "[started] ${{ env.STACK_NAME }} to ${{ env.ENVIRONMENT}}"
+        summary: "Manual deployment of '${{ env.STACK_NAME }}' to ${{ env.ENVIRONMENT}} environment"
+        status: "started"
+        trigger: "${{ github.event.action }} by ${{ github.triggering_actor }}"
+        git-repo: "https://github.com/${{ github.repository }}"
+        git-ref: "${{ github.ref }}"
+        git-commit-hash: "${{ github.sha }}"
+        workflow-run-link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+    - name: Build and Deploy
+      uses: "./.workflow-templates/frontend-sveltekit/build-and-deploy"
+      with:
+        stack-name: ${{ env.STACK_NAME }}
+        environment: ${{ env.ENVIRONMENT }}
+        working-directory: ${{ env.GITHUB_WORKSPACE }}
+        node-version: ${{ vars.NODE_VERSION }}
+        aws-account-id: ${{ secrets.AWS_PRODUCTION_ACCOUNT_ID }}    
+        aws-region: ${{ vars.AWS_REGION }}
+    
+    - name: Send notification on end
+      if: always()
+      uses: "./.workflow-templates/notifications/send-notification-to-teams-channel"
+      with:
+        webhook: ${{ secrets.NOTIFICATION_WEBHOOK }}
+        title: "[${{ job.status }}] ${{ env.STACK_NAME }} to ${{ env.ENVIRONMENT}}"
+        summary: "Manual deployment of '${{ env.STACK_NAME }}' to ${{ env.ENVIRONMENT}} environment"
+        status: "${{ job.status }}"
+        trigger: "${{ github.event.action }} by ${{ github.triggering_actor }}"
+        git-repo: "https://github.com/${{ github.repository }}"
+        git-ref: "${{ github.ref }}"
+        git-commit-hash: "${{ github.sha }}"
+        workflow-run-link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})

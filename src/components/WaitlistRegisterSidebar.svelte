@@ -4,7 +4,7 @@
     import { slide } from 'svelte/transition';
     import ApiButton from './ApiButton.svelte';
     import { onMount } from 'svelte';
-
+    import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
 
     let show = false;
     let counter = 15;
@@ -41,10 +41,9 @@
     let toast_color = 'red';
     let toast_message = 'Something went wrong!';
     let registerLoading = false;
-    // Register = https://microservice-develop.mytomorrows.com/v1.2.0/api/llm-waitlist/register
     async function registerForWaitlist() {
         registerLoading = true;
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/llm-waitlist/register`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/llm-waitlist/register', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -88,7 +87,7 @@
     let speciality_options = [];
     let country_options = [];
     async function getLookup(lookup_type) {
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/get_lookup`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/get_lookup', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

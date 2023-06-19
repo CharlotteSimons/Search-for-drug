@@ -1,6 +1,8 @@
 <script>
 import { Input, Helper } from 'flowbite-svelte';
 import { onMount } from 'svelte';
+import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+
 
 export let selectedValue = ''
 let suggestions = []
@@ -35,7 +37,7 @@ async function fetchData() {
           }
         }
       }`
-      const response = await fetch('https://enterprise-search-develop.mytomorrows.com/gql/graphql', {
+      const response = await fetch(PUBLIC_SEARCH_API_BASE + '/gql/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

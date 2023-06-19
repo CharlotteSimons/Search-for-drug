@@ -1,7 +1,9 @@
 <script>
   import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte'
   import ApiButton from './ApiButton.svelte';
-    
+  import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+  
+
     export let ReportModalOpen = false;
     export let utn = null;
 
@@ -14,7 +16,7 @@
     let loading = false;
     function reportFunction() {
         loading = true;
-        fetch('https://enterprise-search-develop.mytomorrows.com/v01/community/report', {
+        fetch(PUBLIC_SEARCH_API_BASE + '/v01/community/report', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

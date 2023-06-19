@@ -4,6 +4,7 @@
     import SearchAutocomplete from './SearchAutocomplete.svelte';
     import ApiButton from './ApiButton.svelte';
     import TrialSiteAutocomplete from './TrialSiteAutocomplete.svelte';
+    import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
     
     export let hidden1 = true;
     export let utn = null;
@@ -37,7 +38,7 @@
     let requesting = false;
     async function requestAccess() {
         requesting = true;
-        fetch(` https://microservice-develop.mytomorrows.com/v1.2.0/api/create_request`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/create_request', { 
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
