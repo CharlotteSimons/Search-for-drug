@@ -3,6 +3,8 @@
   import { Tabs, TabItem } from 'flowbite-svelte';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
+  import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+
 
   let eligible = null;
   let ineligible = null;
@@ -34,7 +36,7 @@
         }
       }`
       isLoading = true;
-      const response = await fetch('https://enterprise-search-develop.mytomorrows.com/gql/graphql', {
+      const response = await fetch(PUBLIC_SEARCH_API_BASE + '/gql/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -60,7 +62,7 @@
   const uuid = $page.url.searchParams.get('uuid'); 
   async function loadResults() {
     if (eligible === null) {
-      fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/request_tsr', 
+      fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr',
                 {
         method: 'POST',
         headers: {

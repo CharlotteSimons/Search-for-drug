@@ -3,6 +3,8 @@
     import {onMount} from 'svelte';
     import LlmHighlightedCriterion from "./LLMHighlightedCriterion.svelte";
     import ApiButton from "./ApiButton.svelte";
+    import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+
 
     export let uuid;
     export let utn;
@@ -20,7 +22,7 @@
     let loading = true;
     // Load the data from the API, don't use interval
   async function loadResults() {
-      fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/request_tsr', 
+        fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr',
                 {
         method: 'POST',
         headers: {
@@ -63,7 +65,7 @@
     let updateLoading = false;
     async function updateTrialEligibility() {
         updateLoading = true;
-      fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/review_tsr', {
+        fetch(PUBLIC_SEARCH_API_BASE + '/llm/review_tsr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

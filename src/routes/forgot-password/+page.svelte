@@ -1,6 +1,7 @@
 <script>
     import { Input, Label, Toast } from 'flowbite-svelte';
     import ApiButton from '../../components/ApiButton.svelte';
+    import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
 
     let email = null;
     let sendingLink = false;
@@ -8,7 +9,7 @@
 
     function forgotPasswordFunction() {
         sendingLink = true;
-        fetch(' https://microservice-develop.mytomorrows.com/v1.2.0/api/login', {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

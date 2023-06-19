@@ -14,6 +14,8 @@
   } from "flowbite-svelte";
   import { ArrowDownCircle, ArrowUpCircle } from "svelte-heros-v2";
   import { slide } from 'svelte/transition';
+  import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+
 
   export let data = [];
   let columns = data.length > 0 ? Object.keys(data[0]) : [];
@@ -48,8 +50,7 @@
         }
       }, 250);
 
-      fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/drug_data', 
-                {
+      fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/drug_data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

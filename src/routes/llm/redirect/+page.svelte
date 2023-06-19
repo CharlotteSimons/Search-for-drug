@@ -2,13 +2,16 @@
     import { onMount } from "svelte";
     import { Skeleton } from "flowbite-svelte";
     import { page } from '$app/stores';
+    import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+
 
     // This page is just for redirecting to the correct subpage
     // based on the status in the payload
     const uuid = $page.url.searchParams.get('uuid');
 
     async function redirectLLM() {
-        fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/request_tsr', {
+        fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr',
+            {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

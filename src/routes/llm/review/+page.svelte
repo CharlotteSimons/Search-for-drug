@@ -4,6 +4,7 @@
     import ApiButton from '../../../components/ApiButton.svelte';
     import { onMount } from 'svelte';
     import LlmLoaderComponent from '../../../components/LLMLoaderComponent.svelte';
+    import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
 
     let token = null
 
@@ -30,8 +31,7 @@
     // While loading, every 10 seconds call the API to check if the AI has finished
     const interval = setInterval(() => {
         if (loading) {
-            fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/request_tsr', 
-                      {
+            fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
@@ -66,7 +66,7 @@
         let current_review = to_review[current_review_index];
         current_review.human_answer = human_answer;
         reviewing = true;
-        fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/review_tsr', 
+        fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/review_tsr',
                   {
               method: 'POST',
               headers: {

@@ -6,6 +6,7 @@
   import EnrollmentSupportSidebar from '../../../components/EnrollmentSupportSidebar.svelte';
   import DataTable from '../../../components/DataTable.svelte';
   import ReportAsClosedModal from '../../../components/ReportAsClosedModal.svelte';
+  import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
 
   let hidden1 = true; 
   let ReportModalOpen = false;
@@ -43,7 +44,7 @@
           references
         }
       }`
-      const response = await fetch('https://enterprise-search-develop.mytomorrows.com/gql/graphql', {
+        const response = await fetch(PUBLIC_SEARCH_API_BASE + '/gql/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

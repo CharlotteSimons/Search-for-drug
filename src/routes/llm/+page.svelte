@@ -4,6 +4,7 @@
   import CountryAutocomplete from '../../components/CountryAutocomplete.svelte';
   import ApiButton from '../../components/ApiButton.svelte';
   import { onMount } from 'svelte';
+  import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
 
   let selectedGender;
   let genders = [
@@ -45,7 +46,7 @@
     if (countryValid && conditionValid && ageValid && genderValid) {
       console.log('API called...');
       requesting_tsr = true;
-      const response = await fetch('https://enterprise-search-develop.mytomorrows.com/v01/llm/request_tsr', {
+      const response = await fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

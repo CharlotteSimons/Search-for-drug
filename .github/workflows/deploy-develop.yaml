@@ -28,12 +28,6 @@ jobs:
         ssh-key: ${{ secrets.CICD_SSH_KEY }}
         path: './.workflow-templates'
     
-    - name: Debug ls
-      run: |
-        ls -lha
-        ls -lha ./.workflow-templates
-        ls -lha ./.workflow-templates/frontend-sveltekit
-    
     - name: Copy deploy script
       run: cp ./.workflow-templates/frontend-sveltekit/deploy-frontend-sveltekit.sh ./deploy-frontend-sveltekit.sh
 

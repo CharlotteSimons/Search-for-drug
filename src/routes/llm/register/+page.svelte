@@ -2,6 +2,8 @@
     import { Input, Checkbox, Label, Toast, Select } from 'flowbite-svelte';
     import ApiButton from '../../../components/ApiButton.svelte';
     import {onMount } from 'svelte';
+    import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
+
     let email = null;
 
     let show = false;
@@ -27,7 +29,7 @@
     let code = null;
     async function createCode() {
         creatingCode = true;
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/authentication/create_code/`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/authentication/create_code/', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -53,7 +55,7 @@
 
     async function checkCode() {
         creatingCode = true;
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/authentication/check_code`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/authentication/check_code', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -87,7 +89,7 @@
     let creatingPassword = false;
     async function createPassword() {
         creatingPassword = true;
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/reset_password`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/reset_password', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -123,7 +125,7 @@
     let updatingUser = false;
     async function updateUser() {
         updatingUser = true;
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/update_user`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/update_user', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -160,7 +162,7 @@
 
     async function updateConsent() {
         updatingConsent = true;
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/update_user`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/update_user', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -190,7 +192,7 @@
     let speciality_options = [];
     let country_options = [];
     async function getLookup(lookup_type) {
-        fetch(`https://microservice-develop.mytomorrows.com/v1.2.0/api/get_lookup`, {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/get_lookup', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
