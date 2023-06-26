@@ -4,7 +4,7 @@
   import CountryAutocomplete from '../../components/CountryAutocomplete.svelte';
   import ApiButton from '../../components/ApiButton.svelte';
   import { onMount } from 'svelte';
-  import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+  import { PUBLIC_SEARCH_API_BASE, PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
 
   let selectedGender;
   let genders = [
@@ -27,6 +27,8 @@
   let medicalSummary = "";
 
   let requesting_tsr = false;
+
+  let user_email = null;
 
   async function request_tsr(selectedCountry, selectedCondition, age, selectedGender) {
     // Check if all fields are valid
@@ -57,7 +59,7 @@
             age: age,
             gender: selectedGender,
             profile: medicalSummary,
-            email: "danny.den.hamer@mytomorrows.com",
+            email: user_email,
             token: sessionStorage['hcp.user.session.token']
            })
         });
@@ -70,12 +72,35 @@
       }
     }
 }
+
+  async function getUser() {
+    fetch(PUBLIC_MICROSERVICE_API_BASE + "/v1.2.0/api/get_user", {
+      method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+            token: sessionStorage['hcp.user.session.token']
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+      user_email = data.details.Email1;
+    })
+    .catch(error => {
+      console.log(error)
+      alert(error);
+    });
+  }
+
   // hcp.user.session.token check if the user is logged in
   onMount(() => {
     if (sessionStorage['hcp.user.session.token'] == null) {
       console.log('User is not logged in')
       window.location.href = '/';
     }
+
+    getUser();
   })
 </script>
 
