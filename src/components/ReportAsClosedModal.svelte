@@ -38,7 +38,6 @@
             }, 2000);
         })
         .catch((error) => {
-            console.error('Error:', error);
             alert("Error: " + error);
             loading= false;
         });

@@ -81,6 +81,10 @@
           ineligible = data.tsr.eligibility.ineligible;
           disease = data.tsr.medical_profile.condition;
           fetchData();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert(error);
       });
       }
   };

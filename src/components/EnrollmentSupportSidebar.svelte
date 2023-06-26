@@ -66,6 +66,12 @@
                 trigger();
             }
         })
+        .catch((error) => {
+            requesting = false;
+            toast_color = 'red';
+            toast_message = 'Something went wrong!';
+            trigger();
+        });
     }
 
 </script>

@@ -81,6 +81,12 @@
                 toast_message = data.message;
                 trigger();
             }
+        })
+        .catch((error) => {
+            registerLoading = false;
+            toast_color = 'red';
+            toast_message = 'Something went wrong!';
+            trigger();
         });
     }
 
@@ -100,12 +106,6 @@
         })
         })
         .then(response => response.json())
-        // Data format = results.details.{
-            // country: {
-                // id_country: int
-            // }
-            // country2: ...
-        // }
         .then(data => {
             let local_lookup = [];
             for (const [key, value] of Object.entries(data.details)) {
@@ -123,6 +123,9 @@
                 speciality_options = local_lookup;
             }
             
+        })
+        .catch((error) => {
+            alert('Something went wrong!');
         });
     }
 

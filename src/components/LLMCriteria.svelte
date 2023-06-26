@@ -53,6 +53,9 @@
             return data.tsr.criteria_per_trial[utn].exclusion.criterias[key];
         });
         loading = false;
+      })
+      .catch((error) => {
+        alert('Something went wrong, please try again later.');
       });
   };
 
@@ -83,7 +86,10 @@
       .then(data => {
         eligibility = eligibility === 'Potentially eligible' ? 'Ineligible' : 'Potentially eligible';
         updateLoading = false;
-      });
+      })
+        .catch((error) => {
+            alert('Something went wrong, please try again later.');
+        });
   };
 
     onMount(() => {

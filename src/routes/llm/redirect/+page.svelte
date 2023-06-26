@@ -33,6 +33,10 @@
                 // Redirect to /llm/pending
                 window.location.href = '/llm/review?uuid=' + uuid;
             }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert(error);
         });
     }
 

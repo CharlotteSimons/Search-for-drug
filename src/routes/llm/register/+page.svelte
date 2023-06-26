@@ -50,6 +50,12 @@
                 trigger();
             }
         })
+        .catch(error => {
+            creatingCode = false;
+            toast_color = 'red';
+            toast_message = error;
+            trigger();
+        })
         ;
     }
 
@@ -81,6 +87,12 @@
                 trigger();
             }
         })
+        .catch(error => {
+            creatingCode = false;
+            toast_color = 'red';
+            toast_message = error;
+            trigger();
+        })
         ;
     }
 
@@ -110,6 +122,12 @@
                 toast_message = data.message;
                 trigger();
             }
+        })
+        .catch(error => {
+            creatingPassword = false;
+            toast_color = 'red';
+            toast_message = error;
+            trigger();
         })
         ;
     }
@@ -153,6 +171,12 @@
                 trigger();
             }
         })
+        .catch(error => {
+            updatingUser = false;
+            toast_color = 'red';
+            toast_message = error;
+            trigger();
+        })
         ;
     }
 
@@ -184,6 +208,12 @@
                 toast_message = data.message;
                 trigger();
             }
+        })
+        .catch(error => {
+            updatingConsent = false;
+            toast_color = 'red';
+            toast_message = error;
+            trigger();
         })
         ;
     }
@@ -227,7 +257,12 @@
                 speciality_options = local_lookup;
             }
             
-        });
+        })
+        .catch(error => {
+            toast_color = 'red';
+            toast_message = error;
+            trigger();
+        })
     }
 
     onMount(async () => {

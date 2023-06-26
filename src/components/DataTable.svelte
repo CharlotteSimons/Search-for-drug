@@ -69,7 +69,13 @@
         loadingDrugData = false;
         clearInterval(interval);
         drugDataProgress = 0;
-      });
+      })
+      .catch((error) => {
+        alert(error);
+        loadingDrugData = false;
+        clearInterval(interval);
+        drugDataProgress = 0;
+      })
     };
 
   let selectedRow = 0;

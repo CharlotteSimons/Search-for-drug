@@ -30,17 +30,21 @@ const fetchSuggestions = debounce(async (query) => {
     return
   }
   const queryStr = `query {autoComplete(substring: "${query}") {alias}}`
-
-  const response = await fetch('https://enterprise-search.mytomorrows.com/gql/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ query: queryStr })
-  });
-
-  const result = await response.json();
-  suggestions = result.data.autoComplete.map(item => item.alias);
+  try {
+    const response = await fetch('https://enterprise-search.mytomorrows.com/gql/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ query: queryStr })
+    });
+  
+    const result = await response.json();
+    suggestions = result.data.autoComplete.map(item => item.alias);
+  } catch (error) {
+    alert('Something went wrong. Please try again later.')
+    suggestions = []
+  }
 }, 300)
 
 </script>

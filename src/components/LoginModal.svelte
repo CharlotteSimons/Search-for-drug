@@ -29,6 +29,11 @@ import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
             loading = false,
             window.location.href = '/llm';
         })
+        .catch(err => {
+            error = err;
+            alert('Something went wrong, please try again later.')
+            loading = false;
+        });
     }
 </script>
 

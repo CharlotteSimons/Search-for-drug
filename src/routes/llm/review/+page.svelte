@@ -57,6 +57,10 @@
                     to_review = [];
                     current_review_index = -1;
                   }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert(error);
                 });
         }
     }, 2000);
@@ -88,6 +92,10 @@
                     // Redirect to /llm/complete
                     window.location.href = '/llm/results?uuid=' + uuid;
                 }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert(error);
             });
     }
 

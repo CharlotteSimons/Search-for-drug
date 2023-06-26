@@ -44,26 +44,30 @@
     }
     // Only make the API-call if all fields are valid
     if (countryValid && conditionValid && ageValid && genderValid) {
-      console.log('API called...');
       requesting_tsr = true;
-      const response = await fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          condition: selectedCondition,
-          country: selectedCountry,
-          age: age,
-          gender: selectedGender,
-          profile: medicalSummary,
-          email: "danny.den.hamer@mytomorrows.com",
-          token: sessionStorage['hcp.user.session.token']
-         })
-      });
-      const result = await response.json();
-      // Redirect to llm/review
-      window.location.href = `/llm/review?uuid=${result.uuid}`;
+      try {
+        const response = await fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ 
+            condition: selectedCondition,
+            country: selectedCountry,
+            age: age,
+            gender: selectedGender,
+            profile: medicalSummary,
+            email: "danny.den.hamer@mytomorrows.com",
+            token: sessionStorage['hcp.user.session.token']
+           })
+        });
+        const result = await response.json();
+        // Redirect to llm/review
+        window.location.href = `/llm/review?uuid=${result.uuid}`;
+      } catch (error) {
+        console.log(error)
+        alert(error);
+      }
     }
 }
   // hcp.user.session.token check if the user is logged in

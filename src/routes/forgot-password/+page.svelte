@@ -26,6 +26,10 @@
             email = null;
             emailSent = true;
         })
+        .catch(error => {
+            sendingLink = false;
+            alert(error);
+        });
     }
 </script>
 
