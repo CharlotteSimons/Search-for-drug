@@ -208,7 +208,7 @@
                   </div>
                 {:else if drugData && drugDataList.length > 0}
                   <div>
-                    <p class="mb-2 text-gray-500">Results for "<span class="italic">{query}</span>" using Bing Search</p>
+                    <p class="mb-2 text-gray-500">Search results for "<span class="italic">{query}</span>"</p>
                     <ul class="list-disc list-inside mb-3">
                         {#each drugDataSources as source}
                           <li class="mb-2">
