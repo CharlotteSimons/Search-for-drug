@@ -55,6 +55,10 @@
         if (!uuid) {
             window.location.href = '/llm';
         }
+        if (sessionStorage['hcp.user.session.token'] == null) {
+            alert('You are not logged in. Please log in and click the link again.')
+            window.location.href = '/';
+        }
         redirectLLM();
     });
 </script>

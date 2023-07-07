@@ -38,6 +38,11 @@
 
   async function getDrugData(title, intervention) {
       loadingDrugData = true;
+      // Clear previous call data
+      drugDataList = null;
+      drugDataSources = [];
+      drugDataProgress = 0;
+
       // Every second, increase the progress by 10%
       let interval = setInterval(() => {
         // Random value between 1 and 5

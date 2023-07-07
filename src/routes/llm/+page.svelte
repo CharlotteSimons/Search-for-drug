@@ -104,7 +104,7 @@
     .then(response => response.json())
     .then(data => {
       user_email = data.details.Email1;
-      })
+    })
     .catch(error => {
       alert(error);
       // Reset the token

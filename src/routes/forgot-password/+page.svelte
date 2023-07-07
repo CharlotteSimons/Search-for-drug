@@ -9,7 +9,7 @@
 
     function forgotPasswordFunction() {
         sendingLink = true;
-        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/login', {
+        fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/reset_password_email', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -17,7 +17,7 @@
             body: JSON.stringify({ 
                 Email1: email,
                 Portal: 'llm',
-                url: "https://mytomorrows.com/llm/en/reset-password?token="
+                url: "https://trialsearchai-beta.mytomorrows.com/reset-password?token="
                 })
         })
         .then(response => {
