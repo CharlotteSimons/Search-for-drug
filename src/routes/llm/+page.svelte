@@ -48,6 +48,7 @@
     if (countryValid && conditionValid && ageValid && genderValid) {
       requesting_tsr = true;
       try {
+        console.log(user_email)
         const response = await fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr', {
           method: 'POST',
           headers: {
@@ -63,11 +64,14 @@
             token: sessionStorage['hcp.user.session.token']
            })
         });
+
+        // Get result. If status_code > 300, throw error with body.error
+        // else, result = response.json()
         const result = await response.json();
-        // If response code > 300, throw error
-        if (result.response_code > 300) {
-          throw new Error(result.message);
+        if (response.status > 300) {
+          throw new Error(result.error);
         }
+
         // Redirect to llm/review
         window.location.href = `/llm/review?uuid=${result.uuid}`;
       } catch (error) {
@@ -99,7 +103,7 @@
     })  
     .then(response => response.json())
     .then(data => {
-      user_email = data.email;
+      user_email = data.details.Email1;
       })
     .catch(error => {
       alert(error);
