@@ -34,6 +34,17 @@
             token: sessionStorage['hcp.user.session.token']
         })
       })
+        // Check if status_code > 300
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.error));
+          });
+        } else {
+          return response;
+        }
+        })        
       .then(response => response.json())
       .then(data => {
         fullPayload = data;
@@ -55,7 +66,7 @@
         loading = false;
       })
       .catch((error) => {
-        alert('Something went wrong, please try again later.');
+        alert('Something went wrong. Please contact beta@mytomorrows.com.');
       });
   };
 
@@ -82,6 +93,17 @@
         }
     })
         })
+        // Check if status_code > 300
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.error));
+          });
+        } else {
+          return response;
+        }
+        }) 
       .then(response => response.json())
       .then(data => {
         eligibility = eligibility === 'Potentially eligible' ? 'Ineligible' : 'Potentially eligible';

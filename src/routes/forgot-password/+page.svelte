@@ -20,6 +20,16 @@
                 url: "https://mytomorrows.com/llm/en/reset-password?token="
                 })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message + body.details));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             sendingLink = false;

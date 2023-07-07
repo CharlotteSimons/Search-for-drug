@@ -40,7 +40,7 @@ const fetchSuggestions = debounce(async (query) => {
     const result = await response.json();
     suggestions = result.data.countryAutoComplete;
    } catch (error) {
-    alert('Something went wrong. Please try again later.')
+    alert('Something went wrong. Please contact beta@mytomorrows.com.')
     suggestions = []
   }
 }, 300)

@@ -28,6 +28,16 @@
                 trial_id: utn               
                 })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.error));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             loading = false;

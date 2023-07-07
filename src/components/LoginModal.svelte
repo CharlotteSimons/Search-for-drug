@@ -2,7 +2,7 @@
   import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte'
   import ApiButton from './ApiButton.svelte';
   export let loginModalOpen = false;
-import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
+  import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
 
 
     let email = null;
@@ -23,6 +23,17 @@ import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
                 Portal: 'llm'
                 })
         })
+        // Check if status_code > 300
+        .then(response => {
+            if (response.status >= 300) {
+              // Load the response body as JSON, throw body.message as error
+              return response.json().then(body => {
+                return Promise.reject(new Error(body.message));
+              });
+            } else {
+              return response;
+            }
+        })
         .then(response => response.json())
         .then(data => {
             sessionStorage.setItem('hcp.user.session.token', data.details.token),
@@ -30,8 +41,8 @@ import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
             window.location.href = '/llm';
         })
         .catch(err => {
-            error = err;
-            alert('Something went wrong, please try again later.')
+            error = err
+            alert(error)
             loading = false;
         });
     }

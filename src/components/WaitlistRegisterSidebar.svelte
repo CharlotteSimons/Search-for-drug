@@ -39,7 +39,7 @@
     $: formValidated = email && first_name && last_name && speciality && country && contact_consent;
 
     let toast_color = 'red';
-    let toast_message = 'Something went wrong!';
+    let toast_message = 'Something went wrong. Please contact beta@mytomorrows.com.';
     let registerLoading = false;
     async function registerForWaitlist() {
         registerLoading = true;
@@ -58,6 +58,17 @@
             LastConsentMarketing: update_consent
         })
         })
+        // Check if status_code > 300
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+        })        
         .then(response => response.json())
         .then(data => {
             registerLoading = false;
@@ -85,7 +96,7 @@
         .catch((error) => {
             registerLoading = false;
             toast_color = 'red';
-            toast_message = 'Something went wrong!';
+            toast_message = error;
             trigger();
         });
     }
@@ -105,6 +116,16 @@
             lookup_dict: true
         })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             let local_lookup = [];
@@ -125,7 +146,7 @@
             
         })
         .catch((error) => {
-            alert('Something went wrong!');
+            alert(error);
         });
     }
 

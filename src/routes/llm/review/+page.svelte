@@ -41,6 +41,16 @@
                     token: token
                   })
                 })
+                .then(response => {
+                  if (response.status > 300) {
+                  // Load the response body as JSON, throw body.message as error
+                    return response.json().then(body => {
+                      return Promise.reject(new Error(body.error));
+                    });
+                  } else {
+                    return response;
+                  }
+                })
                 .then(response => response.json())
                 .then(data => {
                   if (data.status == 'review') {
@@ -81,6 +91,16 @@
                 review_type: "criteria",
                 review: current_review
               })
+            })
+            .then(response => {
+              if (response.status > 300) {
+              // Load the response body as JSON, throw body.message as error
+                return response.json().then(body => {
+                  return Promise.reject(new Error(body.error));
+                });
+              } else {
+                return response;
+              }
             })
             .then(response => response.json())
             .then(data => {

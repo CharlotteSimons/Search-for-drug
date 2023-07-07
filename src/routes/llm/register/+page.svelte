@@ -11,7 +11,7 @@
 
     let counter = 15;
     let toast_color = 'red';
-    let toast_message = 'Something went wrong!';
+    let toast_message = 'Something went wrong. Please contact beta@mytomorrows.com.';
 
     function trigger() {
         show = true;
@@ -39,6 +39,16 @@
                 Portal: 'llm'
             })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             creatingCode = false;
@@ -75,6 +85,16 @@
                 "token": ""
             })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             creatingCode = false;
@@ -112,6 +132,16 @@
                 token: sessionStorage['hcp.user.session.token']
             })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             creatingPassword = false;
@@ -160,6 +190,16 @@
                 "token": sessionStorage['hcp.user.session.token']
             })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             updatingUser = false;
@@ -198,6 +238,16 @@
                 "token": sessionStorage['hcp.user.session.token']
             })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         .then(data => {
             updatingConsent = false;
@@ -234,6 +284,16 @@
             lookup_dict: true
         })
         })
+        .then(response => {
+        if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+      })
         .then(response => response.json())
         // Data format = results.details.{
             // country: {

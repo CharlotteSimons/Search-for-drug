@@ -64,10 +64,13 @@
            })
         });
         const result = await response.json();
+        // If response code > 300, throw error
+        if (result.response_code > 300) {
+          throw new Error(result.message);
+        }
         // Redirect to llm/review
         window.location.href = `/llm/review?uuid=${result.uuid}`;
       } catch (error) {
-        console.log(error)
         alert(error);
       }
     }
@@ -83,20 +86,32 @@
             token: sessionStorage['hcp.user.session.token']
         })
     })
+    // Check if status_code > 300
+    .then(response => {
+    if (response.status > 300) {
+        // Load the response body as JSON, throw body.message as error
+          return response.json().then(body => {
+            return Promise.reject(new Error(body.message));
+          });
+        } else {
+          return response;
+        }
+    })  
     .then(response => response.json())
     .then(data => {
-      user_email = data.details.Email1;
-    })
+      user_email = data.email;
+      })
     .catch(error => {
-      console.log(error)
       alert(error);
+      // Reset the token
+      sessionStorage['hcp.user.session.token'] = null;
+      window.location.href = '/';
     });
   }
 
   // hcp.user.session.token check if the user is logged in
   onMount(() => {
     if (sessionStorage['hcp.user.session.token'] == null) {
-      console.log('User is not logged in')
       window.location.href = '/';
     }
 
