@@ -107,8 +107,8 @@
     })
     .catch(error => {
       alert(error);
-      // Reset the token
-      sessionStorage['hcp.user.session.token'] = null;
+      // Delete the token and redirect to login
+      sessionStorage.removeItem('hcp.user.session.token');
       window.location.href = '/';
     });
   }
@@ -117,9 +117,9 @@
   onMount(() => {
     if (sessionStorage['hcp.user.session.token'] == null) {
       window.location.href = '/';
+    } else {
+      getUser();
     }
-
-    getUser();
   })
 </script>
 

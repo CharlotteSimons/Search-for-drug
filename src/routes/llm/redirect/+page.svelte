@@ -53,13 +53,14 @@
 
     onMount(() => {
         if (!uuid) {
-            window.location.href = '/llm';
+            window.location.href = '/';
         }
         if (sessionStorage['hcp.user.session.token'] == null) {
             alert('You are not logged in. Please log in and click the link again.')
             window.location.href = '/';
+        } else {
+            redirectLLM();
         }
-        redirectLLM();
     });
 </script>
 

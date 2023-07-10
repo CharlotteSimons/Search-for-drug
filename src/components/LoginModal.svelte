@@ -11,6 +11,9 @@
 
     let loading = false;
     function loginFunction() {
+        // Remove the current token
+        sessionStorage.removeItem('hcp.user.session.token');
+
         loading = true;
         fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/login', {
             method: 'POST',

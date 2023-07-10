@@ -50,7 +50,7 @@
             },
             body: JSON.stringify({
             Email: email,
-            FirstMame: first_name,
+            FirstName: first_name,
             LastName: last_name,
             Speciality: speciality,
             Country: country,
