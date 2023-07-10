@@ -25,6 +25,6 @@
     <FooterLink href="https://mytomorrows.com">About</FooterLink>
     <FooterLink href="https://mytomorrows.com/en/privacy-statement">Privacy Policy</FooterLink>
     <FooterLink href="https://mytomorrows.com/en/cookie-statement">Cookies statement</FooterLink>
-    <FooterLink href="https://agreements-documents.mytomorrows.com/2023.04.11-Terms-of-Use-myTomorrows.pdf">Terms of Use</FooterLink>
+    <FooterLink href="https://agreements-documents.mytomorrows.com/terms-of-use-mytomorrows.pdf">Terms of Use</FooterLink>
   </FooterLinkGroup>
 </Footer>

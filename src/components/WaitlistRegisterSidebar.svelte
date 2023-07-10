@@ -171,7 +171,7 @@
             <span>By signing up to the waitlist, you might be one of the first health care professionals to access and test out the beta version of myTomorrows’ TrialSearch AI, an AI powered tool to quickly find clinical trials and/or Expanded Access Programs for your patient.</span><br>
             <span>The myTomorrows’ team will reach out to you through e-mail once your request is reviewed and if you are approved from the waitlist. Thank you for your patience.</span><br>
             <span>As this is a beta version, myTomorrows aims to continuously improve the capabilities of the tool, and thus would like to contact you for your feedback if and after you use the tool. Your feedback is important to us and will help improve the tool before we open it up for general use by physicians.</span><br>
-            <span>You may opt-out at any time by sending us an e-mail at beta@mytomorrows.com. View our <a href="https://mytomorrows.com/en/privacy-statement" class="underline text-blue-500">Privacy Statement</a> and <a href="https://agreements-documents.mytomorrows.com/2023.04.11-Terms-of-Use-myTomorrows.pdf" class="underline text-blue-500"> Terms of Use.</a></span>
+            <span>You may opt-out at any time by sending us an e-mail at beta@mytomorrows.com. View our <a href="https://mytomorrows.com/en/privacy-statement" class="underline text-blue-500">Privacy Statement</a> and <a href="https://agreements-documents.mytomorrows.com/terms-of-use-mytomorrows.pdf" class="underline text-blue-500"> Terms of Use.</a></span>
         </p>
         <Label class="mt-3 mb-2">Email address *</Label>
         <Input class="mb-1" bind:value={email}></Input>
