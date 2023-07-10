@@ -9,7 +9,7 @@ permissions:
   contents: read  # This is required for actions/checkout
 
 env:
-  STACK_NAME: trialsearch-ai
+  STACK_NAME: trial-search-ai
   ENVIRONMENT: production
 
 jobs:
