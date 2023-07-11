@@ -57,7 +57,8 @@
                     medical_profile = data.tsr.medical_profile;
                     to_review = data.to_review;
                     current_review_index = 0;
-                    human_answer = answerByInex(to_review[current_review_index].inex, false);
+                    // human_answer = answerByInex(to_review[current_review_index].inex, false);
+                    human_answer = null;
                     clearInterval(interval);
                     loading = false;
                   } else if (data.status == 'completed') {
@@ -164,12 +165,12 @@
   {:else}
   <!-- Two cols one 2/3 and one 1/3 -->
   {#if current_review_index > -1}
-  <section class="border border-gray-300 rounded-lg p-4 mb-8">
+  <section class="border border-gray-300 rounded-lg p-4 mb-8 bg-white">
       <div class="flex mb-4">
         <div class="w-2/3">
             <p class="mb-2">{current_review_index + 1}. {to_review[current_review_index].inex} criterion</p>
             <p class="mb-2"><strong>{to_review[current_review_index].to_review.criteria}</strong></p>
-            <p class="mb-2">Based on this inclusion criterion, is the patient NOT ELIGIBLE for <a class='underline' href="https://search.mytomorrows.com/en/study-details?studyId={to_review[current_review_index].utn}">{to_review[current_review_index].utn}</a>?</p>
+            <p class="mb-2">Based on this {to_review[current_review_index].inex} criterion, is the patient NOT ELIGIBLE for <a class='underline' href="https://search.mytomorrows.com/en/study-details?studyId={to_review[current_review_index].utn}">{to_review[current_review_index].utn}</a>?</p>
             <div>
               <form>
                 <div class='flex flex-col p-4 mb-4 bg-[#F2F3EF]'>
@@ -196,7 +197,7 @@
         </div>
       </div>
       <div class="flex justify-between">
-        <Button text={"Previous"} disabled={current_review_index < 1}>Previous</Button>
+        <Button text={"Previous"} disabled={current_review_index < 1} on:click={() => {current_review_index -= 1;}}>Previous</Button>
         <p><strong>{current_review_index + 1} of {to_review.length} criteria</strong></p>
         <ApiButton text={"Next"} onClick={() => review()} loading={reviewing}/>
       </div>

@@ -7,7 +7,7 @@
 
     // This page is just for redirecting to the correct subpage
     // based on the status in the payload
-    const uuid = $page.url.searchParams.get('uuid');
+    let uuid = null;
 
     async function redirectLLM() {
         fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr',
@@ -52,6 +52,7 @@
     }
 
     onMount(() => {
+        uuid = $page.url.searchParams.get('uuid');
         if (!uuid) {
             window.location.href = '/';
         }
