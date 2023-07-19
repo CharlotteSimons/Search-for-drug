@@ -39,9 +39,12 @@
         })
         .then(response => response.json())
         .then(data => {
-            sessionStorage.setItem('hcp.user.session.token', data.details.token),
-            loading = false,
-            window.location.href = '/llm';
+            sessionStorage.setItem('hcp.user.session.token', data.details.token);
+            // Wait 250ms for the token to be set
+            setTimeout(() => {
+              loading = false;
+              window.location.href = '/llm';
+            }, 250);
         })
         .catch(err => {
             error = err
