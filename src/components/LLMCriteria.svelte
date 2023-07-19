@@ -79,7 +79,7 @@
     let updateLoading = false;
     async function updateTrialEligibility() {
         updateLoading = true;
-        fetch(PUBLIC_SEARCH_API_BASE + '/llm/review_tsr', {
+        fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/review_tsr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

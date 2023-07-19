@@ -56,13 +56,24 @@
       if (result.errors) {
         error = result.errors[0].message;
       } else {
-          data = result.data.studies[0];
-          isLoading = false;
+            data = result.data.studies[0];
+            data.conditions = parseJsonList(data.conditions);
+            isLoading = false;
       }
     } catch (err) {
       error = err.message;
     }
   }
+    
+    // json load a string, then parse it
+    function parseJsonList(json) {
+        if (json == null) {
+            return null;
+        } else if (json == '') {
+            return null;
+        }
+        return JSON.parse(json).join(', ');
+    }   
    
     // Load the data from the API
     onMount(() => {
