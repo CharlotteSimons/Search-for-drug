@@ -82,10 +82,9 @@
                 country = null;
                 contact_consent = false;
                 update_consent = false;
-                
-                toast_message = 'You have been registered for the waitlist!'
-                toast_color = 'green';
-                trigger();
+
+                // Redirect to /waitlist
+                window.location.href = '/waitlist';
             } else {
                 // Show toast
                 toast_color = 'red';

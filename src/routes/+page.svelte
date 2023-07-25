@@ -15,6 +15,13 @@
       <p class="text-gray-500 mb-6">Be the first to experience TrialSearch AI.</p>
     </section>
     <section class="mt-4 mb-4">
+      <Button on:click={() => (loginModalOpen = true)}>Login</Button>
+      <LoginModal bind:loginModalOpen={loginModalOpen}/>
+      <Button color="alternative" on:click={() => (waitlist_hidden = false)}>Register for waitlist</Button>
+      <WaitlistRegisterSidebar bind:waitlist_hidden={waitlist_hidden} />
+      <p class="text-gray-500 mb-6 py-6">*If you already have a myTomorrows for Healthcare Professionals account, you still need to register for the waitlist before you can login to access the beta version of TrialSearch AI</p>
+    </section>
+    <section class="mt-4 mb-4">
       <Accordion>
         <AccordionItem>
           <span slot="header" class="text-xl text-black">What is TrialSearch AI?</span>
@@ -31,12 +38,6 @@
           <p>Be the first to know! myTomorrows will keep you updated with the progress of TrialSearch AI so you are the first to know about new launches.</p>
         </AccordionItem>
       </Accordion>
-    </section>
-    <section class="mt-4 mb-4">
-      <Button on:click={() => (loginModalOpen = true)}>Login</Button>
-      <LoginModal bind:loginModalOpen={loginModalOpen}/>
-      <Button color="alternative" on:click={() => (waitlist_hidden = false)}>Register (Waitlist)</Button>
-      <WaitlistRegisterSidebar bind:waitlist_hidden={waitlist_hidden} />
     </section>
   </div>
 </main>
