@@ -14,9 +14,11 @@
 
     let inclusion_criteria = null;
     let inclusion_not_matched = null;
+    let raw_inclusion_criteria = null
 
     let exclusion_criteria = null;
     let exclusion_not_matched = null;
+    let raw_exclusion_criteria = null
 
     let eligibility = null;
 
@@ -51,6 +53,9 @@
       .then(response => response.json())
       .then(data => {
         fullPayload = data;
+        let json_load = JSON.parse(raw_criteria);
+        raw_inclusion_criteria = json_load.inclusion;
+        raw_exclusion_criteria = json_load.exclusion;
         // Check if data.trialsearch_ai[utn] is not empty or an empty object
         if (data.trialsearch_ai[utn] && Object.keys(data.trialsearch_ai[utn]).length !== 0) {
           if (data.trialsearch_ai[utn].human_eligibility !== undefined) {
@@ -70,9 +75,6 @@
           loading = false;
         } else {
           use_plain_criteria = true;
-          let json_load = JSON.parse(raw_criteria);
-          inclusion_criteria = json_load.inclusion;
-          exclusion_criteria = json_load.exclusion;
           loading = false;
         }
       })
@@ -144,18 +146,24 @@
     </div>
     {#if loading}
         <Skeleton />
-    {:else if use_plain_criteria}
+    {:else if use_plain_criteria || inclusion_not_matched !== '' || exclusion_not_matched !== ''}
       <P>
         <h3 class="text-xl font-bold mb-4 mt-4">Inclusion Criteria</h3>
-        <ol class="list-decimal ml-8">
-            {#each inclusion_criteria as criterion}
-                <li>{criterion}</li>
+        <ol class="list-disc ml-8">
+            {#each raw_inclusion_criteria as criterion}
+              <!-- Check if cleaned string is not empty -->
+              {#if criterion.replace(/\s/g, '') !== ''}
+                <li class="mt-1">{criterion}</li>
+              {/if}
             {/each}
         </ol>
         <h3 class="text-xl font-bold mb-4 mt-4">Exclusion Criteria</h3>
-        <ol class="list-decimal ml-8">
-            {#each exclusion_criteria as criterion}
-                <li>{criterion}</li>
+        <ol class="list-disc ml-8">
+            {#each raw_exclusion_criteria as criterion}
+              <!-- Check if cleaned string is not empty -->
+              {#if criterion.replace(/\s/g, '') !== ''}
+                <li class="mt-1">{criterion}</li>
+              {/if}
             {/each}
         </ol>
       </P>

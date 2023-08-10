@@ -108,7 +108,8 @@
       trialsearch_ai = data.trialsearch_ai;
       tsai_status = data.request_status;
 
-      if (!trials_initialised && trialsearch_ai) {
+      
+      if (!trials_initialised && trialsearch_ai && trialsearch_ai.eligibility) {
         eligible = trialsearch_ai.eligibility.eligible;
         ineligible = trialsearch_ai.eligibility.ineligible;
         fetchData();

@@ -18,7 +18,7 @@
       <MdtLoginModal bind:loginModalOpen={loginModalOpen}/>
       <Button color="alternative" on:click={() => (waitlist_hidden = false)}>Register for waitlist</Button>
       <WaitlistRegisterSidebar bind:waitlist_hidden={waitlist_hidden} />
-      <p class="text-gray-500 mb-6 py-6">*If you already have a myTomorrows for Healthcare Professionals account, you still need to register for the waitlist before you can login to access the beta version of TrialSearch AI</p>
+      <p class="text-gray-500 mb-6 py-6">* If you already have a myTomorrows for Healthcare Professionals account, you still need to register for the waitlist before you can login to access the beta version of TrialSearch AI</p>
     </section>
   </div>
 </main>

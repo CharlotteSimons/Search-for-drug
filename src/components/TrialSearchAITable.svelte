@@ -94,10 +94,11 @@
         drugDataProgress = 0;
       })
       .catch((error) => {
-        alert(error);
-        loadingDrugData = false;
+        alert("Something went wrong retrieving the drug data. Please try again later.")
         clearInterval(interval);
+        loadingDrugData = false;
         drugDataProgress = 0;
+        selectedRow = null;
       })
     };
 
@@ -105,6 +106,19 @@
   let reviewed_criteria = [];
 
   export let ineligible_utns = [];
+
+  function get_criteria_to_review(to_review) {
+    // Return a list of criteria to review
+    // If all criteria have been reviewed, return null
+
+    let criteria_to_review = [];
+    for (let criterion of to_review) {
+      if (!reviewed_criteria.includes(identifiable_criterion(criterion))) {
+        criteria_to_review = [...criteria_to_review, criterion];
+      }
+    }
+    return criteria_to_review;
+  }
 
   function identifiable_criterion(criterion) {
     // Return as a formatedd string
@@ -207,7 +221,7 @@
       </TableHeadCell>
       {/if}
       {/each}
-      {#if trialsearch_ai && prescreening_enabled}
+      {#if trialsearch_ai && prescreening_enabled && data.length > 0}
         <TableHeadCell>
           Eligibility
         </TableHeadCell>
@@ -288,12 +302,12 @@
       </TableBodyRow>
       
       <!-- TrialSearch AI Row -->
-      {#if trialsearch_ai[row['id']].to_review !== null && trialsearch_ai[row['id']].to_review.length > 0}
+      {#if trialsearch_ai[row['id']].to_review !== null && get_criteria_to_review(trialsearch_ai[row['id']].to_review).length > 0}
       <TableBodyRow>
         <TableBodyCell colspan={columns.length} tdClass="bg-red-100 rounded-b-3xl">
           <div class="px-6 py-4">
           <P class="font-semibold mb-2">Unmet eligibility criteria</P>
-          {#each trialsearch_ai[row['id']].to_review as criterion}
+          {#each get_criteria_to_review(trialsearch_ai[row['id']].to_review) as criterion}
             {#if !reviewed_criteria.includes(identifiable_criterion(criterion))}
               <!-- Align buttons bottom right, text left -->
               <div class="bg-white rounded-lg p-1 mb-1 flex flex-row text-md">
