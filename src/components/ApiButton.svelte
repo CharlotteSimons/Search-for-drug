@@ -9,6 +9,7 @@
 </script>
 
 <Button on:click={onClick} disabled={disabled || loading} {color}>
+
   {#if loading}
     <Spinner class="mr-3" size="4" color="white" />Loading ...
   {:else}

@@ -1,5 +1,5 @@
 <script>
-    import { Skeleton } from "flowbite-svelte";
+    import { Skeleton, P } from "flowbite-svelte";
     import {onMount} from 'svelte';
     import LlmHighlightedCriterion from "./LLMHighlightedCriterion.svelte";
     import ApiButton from "./ApiButton.svelte";
@@ -8,6 +8,9 @@
 
     export let uuid;
     export let utn;
+    export let raw_criteria;
+
+    let use_plain_criteria = false;
 
     let inclusion_criteria = null;
     let inclusion_not_matched = null;
@@ -48,26 +51,36 @@
       .then(response => response.json())
       .then(data => {
         fullPayload = data;
-        // If human_eligibility, use that as eligiblity
-        if (data.tsr.criteria_per_trial[utn].human_eligibility !== undefined) {
-            eligibility = data.tsr.criteria_per_trial[utn].human_eligibility;
+        // Check if data.trialsearch_ai[utn] is not empty or an empty object
+        if (data.trialsearch_ai[utn] && Object.keys(data.trialsearch_ai[utn]).length !== 0) {
+          if (data.trialsearch_ai[utn].human_eligibility !== undefined) {
+              eligibility = data.trialsearch_ai[utn].human_eligibility;
+          } else {
+              eligibility = data.trialsearch_ai[utn].eligibility;
+          }
+  
+          inclusion_not_matched = data.trialsearch_ai[utn].screened_criteria.inclusion.not_matched_criterias;
+          inclusion_criteria = Object.keys(data.trialsearch_ai[utn].screened_criteria.inclusion.criterias).map(function(key) {
+              return data.trialsearch_ai[utn].screened_criteria.inclusion.criterias[key];
+          });
+          exclusion_not_matched = data.trialsearch_ai[utn].screened_criteria.exclusion.not_matched_criterias;
+          exclusion_criteria = Object.keys(data.trialsearch_ai[utn].screened_criteria.exclusion.criterias).map(function(key) {
+              return data.trialsearch_ai[utn].screened_criteria.exclusion.criterias[key];
+          });
+          loading = false;
         } else {
-            eligibility = data.tsr.criteria_per_trial[utn].eligibility;
+          use_plain_criteria = true;
+          let json_load = JSON.parse(raw_criteria);
+          inclusion_criteria = json_load.inclusion;
+          exclusion_criteria = json_load.exclusion;
+          loading = false;
         }
-
-        inclusion_not_matched = data.tsr.criteria_per_trial[utn].inclusion.not_matched_criterias;
-        inclusion_criteria = Object.keys(data.tsr.criteria_per_trial[utn].inclusion.criterias).map(function(key) {
-            return data.tsr.criteria_per_trial[utn].inclusion.criterias[key];
-        });
-        exclusion_not_matched = data.tsr.criteria_per_trial[utn].exclusion.not_matched_criterias;
-        exclusion_criteria = Object.keys(data.tsr.criteria_per_trial[utn].exclusion.criterias).map(function(key) {
-            return data.tsr.criteria_per_trial[utn].exclusion.criterias[key];
-        });
-        loading = false;
       })
       .catch((error) => {
         alert('Something went wrong. Please contact beta@mytomorrows.com.');
       });
+        
+
   };
 
     // If potentially eligible, show button to mark as Ineligible
@@ -124,11 +137,28 @@
 <div>
     <!-- Spread h2 and api button -->
     <div class="flex justify-between items-center">
-        <h2 class="text-2xl font-bold mb-4">Eligibility Criteria</h2>
+        <h2 class="text-2xl font-bold mb-4 text-blue-500">Eligibility Criteria</h2>
+        {#if !use_plain_criteria && !loading}
         <ApiButton onClick={() => updateTrialEligibility()} text={buttonText} color={buttonColor} loading={updateLoading}></ApiButton>
+        {/if}
     </div>
     {#if loading}
         <Skeleton />
+    {:else if use_plain_criteria}
+      <P>
+        <h3 class="text-xl font-bold mb-4 mt-4">Inclusion Criteria</h3>
+        <ol class="list-decimal ml-8">
+            {#each inclusion_criteria as criterion}
+                <li>{criterion}</li>
+            {/each}
+        </ol>
+        <h3 class="text-xl font-bold mb-4 mt-4">Exclusion Criteria</h3>
+        <ol class="list-decimal ml-8">
+            {#each exclusion_criteria as criterion}
+                <li>{criterion}</li>
+            {/each}
+        </ol>
+      </P>
     {:else}
         
         <h3 class="text-xl font-bold mb-4 mt-4">Inclusion Criteria</h3>

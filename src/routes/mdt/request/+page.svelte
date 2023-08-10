@@ -4,6 +4,7 @@
     import CountryAutocomplete from '../../../components/CountryAutocomplete.svelte';
     import SearchAutocomplete from '../../../components/SearchAutocomplete.svelte';
     import { onMount } from 'svelte';
+    import { PUBLIC_SEARCH_API_BASE, PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
 
     let user_email = null;
 
@@ -13,7 +14,7 @@
     ]
 
     let form = {
-    identifier: '',
+    patient_id: '',
     disease: null,
     country: null,
     age: '',
@@ -35,7 +36,7 @@
   }
 
   let default_form = {
-    identifier: '',
+    patient_id: '',
     disease: null,
     country: null,
     age: '',
@@ -52,7 +53,7 @@
   function clearForm() {
     // Reset form
     form = {
-    identifier: '',
+    patient_id: '',
     disease: null,
     country: null,
     age: '',
@@ -65,6 +66,31 @@
     overall_health: '',
     other: '',
     };
+  }
+
+  function format_form_as_request(form_completion) {
+    // Create string from profile, only the medical fields
+    let profile_string = '';
+    profile_string += "Histology: " + form_completion.histology + "\n";
+    profile_string += "Previous treatment: " + form_completion.previous_treatment + "\n";
+    profile_string += "Biomarkers: " + form_completion.biomarkers + "\n";
+    profile_string += "Test values: " + form_completion.test_values + "\n";
+    profile_string += "Comorbidities: " + form_completion.comorbidities + "\n";
+    profile_string += "Overall health: " + form_completion.overall_health + "\n";
+    profile_string += "Other: " + form_completion.other + "\n";
+
+    // Create object with all the fields
+    return {
+        patient_id: form_completion.patient_id,
+        condition: form_completion.disease,
+        country: form_completion.country,
+        age: form_completion.age,
+        gender: form_completion.sex,
+        profile: profile_string,
+        email: user_email,
+        token: sessionStorage['hcp.user.session.token']
+    }
+    
   }
 
   async function getUser() {
@@ -90,6 +116,7 @@
     })  
     .then(response => response.json())
     .then(data => {
+      console.log("User data: ", data)
       user_email = data.details.Email1;
     })
     .catch(error => {
@@ -101,33 +128,44 @@
   }
 
     let batch_request_successful = false;
-  async function request_overviews() {
-    // try {
-    //   const response = await fetch(PUBLIC_MICROSERVICE_API_BASE + "/v01/trialsearch_ai/batch_request", {
-    //     method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify({ 
-    //         email: user_email,
-    //         token: sessionStorage['hcp.user.session.token'],
-    //         requests: profiles
-    //       })
-    //   });
+    let requesting_batch = false;
+  async function batch_request() {
+    requesting_batch = true;
+    // Request all profiles in the profiles array
+    let requests = [];
+    for (let i = 0; i < profiles.length; i++) {
+      requests.push(format_form_as_request(profiles[i]));
+    }
+    // Create a batch request
+    try {
+      const response = await fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          batch_request: requests,
+          token: sessionStorage['hcp.user.session.token']
+          })
+      });
 
-    //   // Get result. If status_code > 300, throw error with body.error
-    //   // else, result = response.json()
-    //   const result = await response.json();
-    //   if (response.status > 300) {
-    //     throw new Error(result.error);
-    //   }
+      // Get result. If status_code > 300, throw error with body.error
+      // else, result = response.json()
+      const result = await response.json();
+      if (response.status > 300) {
+        throw new Error(result.error);
+      }
 
-    //     // Show success message
-        batch_request_successful = true;
-    // } catch (error) {
-    //   alert(error);
-    // }
-  }
+      // If successful, clear the profiles array
+      profiles = [];
+      batch_request_successful = true;
+      requesting_batch = false;
+
+    } catch (error) {
+      alert(error);
+      requesting_batch = false;
+    }
+}
 
     // hcp.user.session.token check if the user is logged in
   onMount(() => {
@@ -153,7 +191,7 @@
         </Alert>
     <div class="mb-6">
         <Label class ="block mb-2">Patient Identifier *</Label>
-        <Input bind:value={form.identifier} placeholder="ID0123456789" required/>
+        <Input bind:value={form.patient_id} placeholder="ID0123456789" required/>
         <Helper class="mt-1">Do not use personal identifiable identifiers like date of birth.</Helper>
     </div>
     
@@ -215,7 +253,7 @@
 
     <!-- Request all profiles -->
     <section>
-        <ApiButton onClick={() => request_overviews()} disabled={profiles.length < 1 || JSON.stringify(form) !== JSON.stringify(default_form)} text="Request {profiles.length} overviews"/>
+        <ApiButton onClick={() => batch_request()} disabled={profiles.length < 1 || JSON.stringify(form) !== JSON.stringify(default_form)} text="Request {profiles.length} overviews" loading={requesting_batch}/>
         {#if JSON.stringify(form) !== JSON.stringify(default_form)}
         <Helper class="mt-2 text-red-700">Please submit the patient profile before requesting the overviews.</Helper>
         {/if}

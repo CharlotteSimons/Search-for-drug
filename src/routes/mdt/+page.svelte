@@ -1,7 +1,7 @@
 <script>
   import MdtLoginModal from "../../components/MDT/MDTLoginModal.svelte";
   import WaitlistRegisterSidebar from "../../components/WaitlistRegisterSidebar.svelte";
-  import { Accordion, AccordionItem, Button } from "flowbite-svelte";
+  import { Button } from "flowbite-svelte";
 
   let loginModalOpen = false;
   let waitlist_hidden = true;
