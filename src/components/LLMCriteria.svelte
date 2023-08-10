@@ -36,7 +36,7 @@
         body: JSON.stringify({ 
             uuid: uuid,
             trial_id: utn,
-            token: sessionStorage['hcp.user.session.token']
+            token: localStorage['hcp.user.session.token']
         })
       })
         // Check if status_code > 300

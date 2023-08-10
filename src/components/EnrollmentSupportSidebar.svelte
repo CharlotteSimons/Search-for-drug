@@ -50,7 +50,7 @@
                 "TreatmentIndication": selectedCondition,
                 "Trial": utn,
                 "TrialSite": selectedSite,
-                "token": sessionStorage['hcp.user.session.token']
+                "token": localStorage['hcp.user.session.token']
             })
         })
         // Check if status_code > 300

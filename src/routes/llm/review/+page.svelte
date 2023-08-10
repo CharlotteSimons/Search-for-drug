@@ -78,11 +78,11 @@
 
     // hcp.user.session.token check if the user is logged in
     onMount(() => {
-    if (sessionStorage['hcp.user.session.token'] == null) {
+    if (localStorage['hcp.user.session.token'] == null) {
       console.log('User is not logged in')
       window.location.href = '/';
     } else {
-      token = sessionStorage['hcp.user.session.token'];
+      token = localStorage['hcp.user.session.token'];
     }
     })
 

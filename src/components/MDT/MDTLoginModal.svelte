@@ -12,7 +12,7 @@
     let loading = false;
     function loginFunction() {
         // Remove the current token
-        sessionStorage.removeItem('hcp.user.session.token');
+        localStorage.removeItem('hcp.user.session.token');
 
         loading = true;
         fetch(PUBLIC_MICROSERVICE_API_BASE + '/v1.2.0/api/login', {
@@ -39,7 +39,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            sessionStorage.setItem('hcp.user.session.token', data.details.token);
+            localStorage.setItem('hcp.user.session.token', data.details.token);
             // Wait 250ms for the token to be set
             setTimeout(() => {
               loading = false;

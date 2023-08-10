@@ -84,7 +84,7 @@
    
     // Load the data from the API
     onMount(() => {
-    if (sessionStorage['hcp.user.session.token'] == null) {
+    if (localStorage['hcp.user.session.token'] == null) {
       console.log('User is not logged in')
       window.location.href = '/';
     } else {

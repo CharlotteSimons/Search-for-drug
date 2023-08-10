@@ -61,7 +61,7 @@
             gender: selectedGender,
             profile: medicalSummary,
             email: user_email,
-            token: sessionStorage['hcp.user.session.token']
+            token: localStorage['hcp.user.session.token']
            })
         });
 
@@ -87,7 +87,7 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
-            token: sessionStorage['hcp.user.session.token']
+            token: localStorage['hcp.user.session.token']
         })
     })
     // Check if status_code > 300
@@ -108,14 +108,14 @@
     .catch(error => {
       alert(error);
       // Delete the token and redirect to login
-      sessionStorage.removeItem('hcp.user.session.token');
+      localStorage.removeItem('hcp.user.session.token');
       window.location.href = '/';
     });
   }
 
   // hcp.user.session.token check if the user is logged in
   onMount(() => {
-    if (sessionStorage['hcp.user.session.token'] == null) {
+    if (localStorage['hcp.user.session.token'] == null) {
       window.location.href = '/';
     } else {
       getUser();

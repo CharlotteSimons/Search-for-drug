@@ -99,7 +99,7 @@
         .then(data => {
             creatingCode = false;
             if (data.status === 'Succes') {
-                sessionStorage.setItem('hcp.user.session.token', data.details.token)
+                localStorage.setItem('hcp.user.session.token', data.details.token)
                 current_state = 3;
             } else {
                 toast_color = 'red';
@@ -129,7 +129,7 @@
             body: JSON.stringify({
                 NewPassword: password1,
                 RepeatPassword: password2,
-                token: sessionStorage['hcp.user.session.token']
+                token: localStorage['hcp.user.session.token']
             })
         })
         .then(response => {
@@ -187,7 +187,7 @@
                 "JobTitle": healthcare_profession,
                 "MedicalLicenseNumber": registration_number,
                 "Speciality": specialty,
-                "token": sessionStorage['hcp.user.session.token']
+                "token": localStorage['hcp.user.session.token']
             })
         })
         .then(response => {
@@ -235,7 +235,7 @@
                 "LLMConsent": llm_consent,
                 "LLMContactConsent": llm_contact_consent,
                 "Portal": "llm",
-                "token": sessionStorage['hcp.user.session.token']
+                "token": localStorage['hcp.user.session.token']
             })
         })
         .then(response => {
