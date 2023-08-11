@@ -5,6 +5,7 @@
     import SearchAutocomplete from '../../../components/SearchAutocomplete.svelte';
     import { onMount } from 'svelte';
     import { PUBLIC_SEARCH_API_BASE, PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
+    import { fade } from 'svelte/transition';
 
     let user_email = null;
 
@@ -30,8 +31,17 @@
 
   let profiles = [];
 
+  let submission_successful = false;
+  // Show success text for 3 seconds
+  $: if (submission_successful) {
+    setTimeout(() => {
+      submission_successful = false;
+    }, 3000);
+  }
+
   function submitForm() {
     profiles = [...profiles, form]
+    submission_successful = true;
     clearForm();
   }
 
@@ -116,7 +126,6 @@
     })  
     .then(response => response.json())
     .then(data => {
-      console.log("User data: ", data)
       user_email = data.details.Email1;
     })
     .catch(error => {
@@ -247,6 +256,11 @@
     </div>
     <Button type="submit">Submit Patient</Button>
     <Button color="alternative" on:click={() => clearForm()}>Clear form</Button>
+    {#if submission_successful}
+    <Helper class="mt-2 text-green-700" >
+      <span out:fade>Patient profile submitted successfully.</span>
+    </Helper>
+    {/if}
     </form>
     </section>
     <div class="w-full h-0 border border-gray-100 my-6"></div>

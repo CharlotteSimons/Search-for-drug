@@ -134,7 +134,6 @@
   function initiateInterval(uuid, token) {
     request_trialsearchai(uuid, token);
   const interval = setInterval(() => {
-      console.log("Retrieving TrialSearch AI results")
       request_trialsearchai(uuid, token);
   }, 10000);
   return interval;
@@ -156,7 +155,7 @@
 <main>
 <div class="p-8 w-full">
   <section>
-      <a href="/" class="text-slate-700 text-l font-bold underline mb-6">Back to login</a>
+      <a href="/llm" class="text-slate-700 text-l font-bold underline mb-6">Back to start</a>
       {#if medical_profile && trials_initialised}
         <h3 class="text-2xl font-bold mb-6 mt-6">{eligibleStudies.length + ineligibleStudies.length} results for {medical_profile.condition} in {medical_profile.country}</h3>
       {/if}

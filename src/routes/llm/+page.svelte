@@ -48,7 +48,6 @@
     if (countryValid && conditionValid && ageValid && genderValid) {
       requesting_tsr = true;
       try {
-        console.log(user_email)
         const response = await fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/request_tsr', {
           method: 'POST',
           headers: {
