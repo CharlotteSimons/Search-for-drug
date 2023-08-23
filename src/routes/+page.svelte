@@ -2,10 +2,12 @@
   import LoginModal from "../components/LoginModal.svelte";
   import WaitlistRegisterSidebar from "../components/WaitlistRegisterSidebar.svelte";
   import { Accordion, AccordionItem, Button } from "flowbite-svelte";
+  import { page } from '$app/stores';
 
   let loginModalOpen = false;
   let waitlist_hidden = true;
 
+  const uuid = $page.url.searchParams.get('uuid');
 </script>
 
 <main>
@@ -16,7 +18,7 @@
     </section>
     <section class="mt-4 mb-4">
       <Button on:click={() => (loginModalOpen = true)}>Login</Button>
-      <LoginModal bind:loginModalOpen={loginModalOpen}/>
+      <LoginModal bind:loginModalOpen={loginModalOpen} {uuid}/>
       <Button color="alternative" on:click={() => (waitlist_hidden = false)}>Register for waitlist</Button>
       <WaitlistRegisterSidebar bind:waitlist_hidden={waitlist_hidden} />
       <p class="text-gray-500 mb-6 py-6">* If you already have a myTomorrows for Healthcare Professionals account, you still need to register for the waitlist before you can login to access the beta version of TrialSearch AI</p>

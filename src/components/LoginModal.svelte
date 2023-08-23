@@ -1,9 +1,11 @@
 <script>
-  import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte'
+  import { Modal, Label, Input } from 'flowbite-svelte'
   import ApiButton from './ApiButton.svelte';
   export let loginModalOpen = false;
   import { PUBLIC_MICROSERVICE_API_BASE } from '$env/static/public';
 
+
+    export let uuid = null;
 
     let email = null;
     let password = null;
@@ -43,7 +45,11 @@
             // Wait 250ms for the token to be set
             setTimeout(() => {
               loading = false;
-              window.location.href = '/llm';
+              if (uuid) {
+                window.location.href = `/llm/results?uuid=${uuid}`;
+              } else {
+                window.location.href = '/llm';
+              }
             }, 250);
         })
         .catch(err => {

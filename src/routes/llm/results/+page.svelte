@@ -143,7 +143,7 @@
   // hcp.user.session.token check if the user is logged in
   onMount(() => {
     if (localStorage['hcp.user.session.token'] == null) {
-      window.location.href = '/';
+      window.location.href = '/?uuid=' + uuid;
     } else {
       token = localStorage['hcp.user.session.token'];
       loading = true;
