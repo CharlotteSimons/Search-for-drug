@@ -156,12 +156,23 @@
 <div class="p-8 w-full">
   <section>
       <a href="/llm" class="text-slate-700 text-l font-bold underline mb-6">Back to start</a>
-      {#if medical_profile && trials_initialised}
-        <h3 class="text-2xl font-bold mb-6 mt-6">{eligibleStudies.length + ineligibleStudies.length} results for {medical_profile.condition} in {medical_profile.country}</h3>
-      {/if}
+  </section>
+  <section class="my-6">
+    {#if trials_initialised}
+    <h3 class="text-2xl font-bold mb-4">{eligibleStudies.length + ineligibleStudies.length} results for {medical_profile.condition} in {medical_profile.country}</h3>
+    {/if}
+    {#if medical_profile}
+    <div class="p-4 bg-white shadow-md rounded-md">
+      <div>
+        <h3 class="font-bold mb-2">Medical Profile</h3>
+        <span>{medical_profile.gender} aged {medical_profile.age}.</span>
+        <span>{medical_profile.profile}</span>
+      </div>
+    </div>
+    {/if}
   </section>
   <div class="mt-6">
-    <Tabs>
+    <Tabs contentClass="bg-gray-50 rounded-lg dark:bg-gray-800 mt-4">
       <TabItem open>
         <span slot="title" class="text-lg fond-bold">Potentially Eligible ({eligibleStudies.length})</span>
         {#if error}
