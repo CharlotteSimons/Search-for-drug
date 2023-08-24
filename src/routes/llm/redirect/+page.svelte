@@ -55,10 +55,6 @@
         uuid = $page.url.searchParams.get('uuid');
         if (!uuid) {
             window.location.href = '/';
-        }
-        if (localStorage['hcp.user.session.token'] == null) {
-            alert('You are not logged in. Please log in and click the link again.')
-            window.location.href = '/';
         } else {
             redirectLLM();
         }

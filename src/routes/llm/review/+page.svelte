@@ -76,16 +76,6 @@
         }
     }, 2000);
 
-    // hcp.user.session.token check if the user is logged in
-    onMount(() => {
-    if (localStorage['hcp.user.session.token'] == null) {
-      console.log('User is not logged in')
-      window.location.href = '/';
-    } else {
-      token = localStorage['hcp.user.session.token'];
-    }
-    })
-
 </script>
 <div class="max-w-5xl mx-auto">
   <!-- Heading section -->

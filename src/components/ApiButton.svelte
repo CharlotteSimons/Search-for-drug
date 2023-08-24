@@ -13,7 +13,7 @@
   {#if loading}
     <Spinner size="4" color="white" /><span class="ml-2">Processing ...</span>
   {:else}
-  <span class="py-1">{text}</span>
+  <span>{text}</span>
     
   {/if}
 </Button>

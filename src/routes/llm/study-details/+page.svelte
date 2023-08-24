@@ -84,16 +84,14 @@
    
     // Load the data from the API
     onMount(() => {
-    if (localStorage['hcp.user.session.token'] == null) {
-      console.log('User is not logged in')
-      window.location.href = '/';
-    } else {
         fetchData();
-    }
     });
 
 </script>
 <main class="max-w-1280">
+    <section class="w-full mt-6">
+        <span class="text-slate-700 text-l font-bold underline">Back to <a href="/llm/results?uuid={uuid}">Search Results</a></span>
+    </section>
     <section class="w-full p-6 mt-6 bg-white">
         {#if isLoading}
             <Skeleton class="mb-4"/>

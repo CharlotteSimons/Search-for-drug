@@ -125,7 +125,6 @@
       }
     })
     .catch((error) => {
-        console.error('Error:', error);
         alert(error);
     });
   }
@@ -139,16 +138,9 @@
   return interval;
 }
 
-
-  // hcp.user.session.token check if the user is logged in
   onMount(() => {
-    if (localStorage['hcp.user.session.token'] == null) {
-      window.location.href = '/?uuid=' + uuid;
-    } else {
-      token = localStorage['hcp.user.session.token'];
-      loading = true;
-      intervalId = initiateInterval(uuid, token);
-    }
+    loading = true;
+    intervalId = initiateInterval(uuid, token);
   })
 </script>
 
@@ -182,7 +174,7 @@
       {/if}
     </TabItem>
     <TabItem>
-      <span slot="title" class="text-lg fond-bold">Ineligible ({ineligibleStudies.length})</span>
+      <span slot="title" class="text-lg fond-bold">Marked as Ineligible ({ineligibleStudies.length})</span>
       {#if error}
         <p>{error}</p>
       {:else if data && ineligibleStudies.length > 0}
