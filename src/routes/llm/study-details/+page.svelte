@@ -150,14 +150,14 @@
             <!-- Center all items in div -->
             <div class="flex flex-col">
             <h3 class="text-2xl font-bold mb-4 text-blue-500">Request Enrollment Support</h3>
-            <P class="text-slate-500 mb-2">Here are the next steps to access the trial you selected:</P>
+            <P class="mb-2">Here are the next steps to access the trial you selected:</P>
             <ol class="list-decimal text-black ml-6">
                 <li class="mt-2">The myTomorrows team will be notified of your request to access the selected trial and will provide you with next steps of the enrolment request.</li>
                 <li class="mt-2">The information you have provided will be visible to the myTomorrows team for reviewing.</li>
                 <li class="mt-2">In the meantime, if you have any questions, please reach out to: beta@mytomorrows.com</li>
             </ol>
             </div>
-            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Support</Button>
+            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Enrollment Support</Button>
     </section>
     <section class="w-full p-6 mb-6 bg-white">
         <h2 class="text-2xl font-bold mb-4 text-blue-600">Description</h2>
@@ -186,14 +186,14 @@
             <!-- Center all items in div -->
             <div class="flex flex-col">
             <h3 class="text-2xl font-bold mb-4 text-blue-500">Request Enrollment Support</h3>
-            <P class="text-slate-500 mb-2">Here are the next steps to access the trial you selected:</P>
+            <P class="mb-2">Here are the next steps to access the trial you selected:</P>
             <ol class="list-decimal text-black ml-6">
                 <li class="mt-2">The myTomorrows team will be notified of your request to access the selected trial and will provide you with next steps of the enrolment request.</li>
                 <li class="mt-2">The information you have provided will be visible to the myTomorrows team for reviewing.</li>
                 <li class="mt-2">In the meantime, if you have any questions, please reach out to: beta@mytomorrows.com</li>
             </ol>
             </div>
-            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Support</Button>
+            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Enrollment Support</Button>
     </section>
 
     <section class="w-full p-6 mb-6 bg-white">

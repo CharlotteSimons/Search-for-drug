@@ -200,8 +200,8 @@
 
 </script>
 
-<Table striped={true} divClass="relative w-full max-w-full" shadow>
-  <TableHead theadClass="text-md bg-white">
+<Table noborder={true} divClass="relative w-full max-w-full" shadow>
+  <TableHead theadClass="text-md border-b-8 border-gray-100 bg-white">
     {#each columns as column, index}
       {#if !(['reports_as_closed', 'id', 'phase', 'overall_status'].includes(column))}
       <TableHeadCell>
@@ -289,7 +289,10 @@
           {#if trialsearch_ai && prescreening_enabled}
           <TableBodyCell tdClass="px-6 py-4 font-medium">
             {#if trialsearch_ai[row['id']].to_review !== null && trialsearch_ai[row['id']].to_review.length > 0}
-            <Badge color="red">{trialsearch_ai[row['id']].to_review.length} Unmet</Badge>
+            <Badge color="red">
+              Unmet
+              <Badge rounded class="w-4 h-4 ml-1 p-0 font-semibold text-red-100 bg-red-700">{trialsearch_ai[row['id']].to_review.length}</Badge>
+            </Badge>
             {:else if trialsearch_ai[row['id']].to_review === null}
             <Badge color="dark"><Spinner size="3" class="mr-1"/>Pending</Badge>
             {:else}
@@ -297,45 +300,43 @@
             {/if}
           </TableBodyCell>
           {/if}
-
       
       
       </TableBodyRow>
       
       <!-- TrialSearch AI Row -->
       {#if trialsearch_ai[row['id']].to_review !== null && criteria_not_reviewed(row['id'], reviewed_criteria)}
-      <TableBodyRow>
-        <TableBodyCell colspan={columns.length} tdClass="bg-red-100 rounded-b-3xl">
-          <div class="px-6 py-4">
-          <P class="font-semibold mb-2">Unmet eligibility criteria</P>
+      <TableBodyRow class="border-b-8 border-gray-100">
+        <TableBodyCell colspan={columns.length} tdClass="">
+          <div class="p-4 bg-red-100 rounded-xl m-4">
+          <P class="font-semibold mb-2">Unmet eligibility criteria according to AI</P>
           {#each trialsearch_ai[row['id']].to_review as criterion}
             
           <!-- Individual criterion -->
           {#if !reviewed_criteria.includes(identifiable_criterion(criterion))}    
               <div class="bg-white rounded-lg p-1 mb-2 flex flex-row text-md shadow-md">
                 <!-- Criterion -->
-                <div class="w-3/5 pr-8 ml-2 my-1 flex flex-col">
+                <div class="w-4/6 pr-8 ml-2 my-1 flex flex-col">
                   <P>
                   {#if criterion.inex === 'inclusion'}
                     <span class="text-green-700 font-bold">Inclusion criterion: </span>
                     {:else if criterion.inex === 'exclusion'}
                     <span class="text-red-700 font-bold">Exclusion criterion: </span>
                   {/if}
-                  <span class="font-bold">{criterion.to_review.criteria}</span><br>
+                  <span class="font-medium">{criterion.to_review.criteria}</span><br>
                 </P>
 
-                <span class="text-gray-500  mt-1 align-middle flex flex-row">
-                  <span class="font-bold mr-1">AI: </span>
-                  "{criterion.to_review.explanation}"
-                  </span>
+                <p class="text-gray-500 mt-2">
+                  <span class="font-bold">AI:</span>
+                   "{criterion.to_review.explanation}"
+                  </p>
                 
               </div>
-                
                 <!-- Answer Buttons, align right -->
-                <div class="w-2/5 my-1 mr-2 flex flex-row justify-end space-x-2 items-center">
+                <div class="w-2/6 mr-2 my-1 flex flex-row justify-end space-x-2 items-center">
                 <ApiButton color="green" text="True for patient" disabled={reviewing} onClick={() => review(criterion, true)}></ApiButton>
-                <ApiButton color="red" text="Not true for patient" disabled={reviewing} onClick={() => review(criterion, false)}></ApiButton>
-                <ApiButton color="dark" text="I'm not sure" disabled={reviewing} onClick={() => review(criterion, null)}></ApiButton>
+                <ApiButton color="red" text="Untrue for patient" disabled={reviewing} onClick={() => review(criterion, false)}></ApiButton>
+                <ApiButton color="light" text="I'm not sure" disabled={reviewing} onClick={() => review(criterion, null)}></ApiButton>
                 </div>
 
               </div>
@@ -344,6 +345,8 @@
             </div>
         </TableBodyCell>
       </TableBodyRow>
+      {:else}
+      <TableBodyRow class="border-b-8 border-gray-100"></TableBodyRow>
       {/if}
 
       <!-- Drug Data Row -->
