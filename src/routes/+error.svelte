@@ -1,11 +1,5 @@
 <script>
     // +error.svelte
-
-    import { onMount } from 'svelte';
-
-    onMount(() => {
-        console.log('error');
-    });
 </script>
 
 <div>

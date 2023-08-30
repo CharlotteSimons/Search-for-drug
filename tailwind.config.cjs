@@ -1,14 +1,14 @@
 const config = {
   content: [
-    "./src/**/*.{html,js,svelte,ts}",
+    "./src/**/*.{html,js,svelte,ts,ttf}",
     "./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
   ],
 
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['GT Walsheim', 'Inter', 'sans-serif'],
-        'serif': ['GT Walsheim', 'Merriweather', 'serif'],
+        'sans': ['InterVariable', 'Inter', 'sans-serif'],
+        'serif': ['Merriweather', 'serif'],
       },
       colors: {
         'blue': {

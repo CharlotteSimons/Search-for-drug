@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  import { Skeleton, Button } from 'flowbite-svelte';
+  import { Skeleton, Button, P, Card } from 'flowbite-svelte';
   import LlmCriteria from '../../../components/LLMCriteria.svelte';
   import EnrollmentSupportSidebar from '../../../components/EnrollmentSupportSidebar.svelte';
   import DataTable from '../../../components/DataTable.svelte';
@@ -17,6 +17,8 @@
   let isLoading = true;
   let data;
   let error;
+
+  let sites = [];
 
   async function fetchData() {
     try {
@@ -35,6 +37,7 @@
           start_date
           end_date
           detailed_description
+          eligibility
           locatedAt {
             sitename
             countryname
@@ -58,6 +61,10 @@
       } else {
             data = result.data.studies[0];
             data.conditions = parseJsonList(data.conditions);
+
+            // Get sites, filter by country
+            sites = data.locatedAt;
+
             isLoading = false;
       }
     } catch (err) {
@@ -77,16 +84,14 @@
    
     // Load the data from the API
     onMount(() => {
-    if (sessionStorage['hcp.user.session.token'] == null) {
-      console.log('User is not logged in')
-      window.location.href = '/';
-    } else {
         fetchData();
-    }
     });
 
 </script>
 <main class="max-w-1280">
+    <section class="w-full mt-6">
+        <span class="text-slate-700 text-l font-bold underline">Back to <a href="/llm/results?uuid={uuid}">Search Results</a></span>
+    </section>
     <section class="w-full p-6 mt-6 bg-white">
         {#if isLoading}
             <Skeleton class="mb-4"/>
@@ -141,16 +146,18 @@
         </div>
         {/if}
     </section>
-    <section class="w-full p-6 mb-6 border-blue-600 border-2 rounded-lg">
-        <!-- Center all items in div -->
-        <div class="flex items-center flex-col justify-center">
-            <h3 class="text-xl font-bold mb-4">Request Access</h3>
-            <p class="text-md text-center mb-2">Here are the next steps to access the trial you selected:</p>
-            <p class="text-md text-center mb-2">The myTomorrows team will be notified of your request to access the selected trial and will provide you with next steps of the enrolment request.</p>
-            <p class="text-md text-center mb-2">The information you have provided will be visible to the myTomorrows team for reviewing.</p>
-            <p class="text-md text-center mb-2">In the meantime, if you have any questions, please reach out to: beta@mytomorrows.com</p>
-            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Access</Button>
-        </div>
+    <section class="w-full p-6 mb-6 flex flex-col bg-white rounded-xl shadow-lg">
+            <!-- Center all items in div -->
+            <div class="flex flex-col">
+            <h3 class="text-2xl font-bold mb-4 text-blue-500">Request Enrollment Support</h3>
+            <P class="mb-2">Here are the next steps to access the trial you selected:</P>
+            <ol class="list-decimal text-black ml-6">
+                <li class="mt-2">The myTomorrows team will be notified of your request to access the selected trial and will provide you with next steps of the enrolment request.</li>
+                <li class="mt-2">The information you have provided will be visible to the myTomorrows team for reviewing.</li>
+                <li class="mt-2">In the meantime, if you have any questions, please reach out to: beta@mytomorrows.com</li>
+            </ol>
+            </div>
+            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Enrollment Support</Button>
     </section>
     <section class="w-full p-6 mb-6 bg-white">
         <h2 class="text-2xl font-bold mb-4 text-blue-600">Description</h2>
@@ -162,33 +169,40 @@
         </div>
         {/if}
     </section>
+    
+    <!-- Eligibility Criteria -->
+
     <section class="w-full p-6 mb-6 bg-white">
         {#if isLoading}
             <Skeleton class="mb-4"/>
         {:else}
         <div class="flex w-full">
-            <LlmCriteria {uuid} {utn}/>
+            <LlmCriteria {uuid} {utn} raw_criteria={data.eligibility} />
         </div>
         {/if}
     </section>
-    <section class="w-full p-6 mb-6 border-blue-600 border-2 rounded-lg">
-        <!-- Center all items in div -->
-        <div class="flex items-center flex-col justify-center">
-            <h3 class="text-xl font-bold mb-4">Request Access</h3>
-            <p class="text-md text-center mb-2">Here are the next steps to access the trial you selected:</p>
-            <p class="text-md text-center mb-2">The myTomorrows team will be notified of your request to access the selected trial and will provide you with next steps of the enrolment request.</p>
-            <p class="text-md text-center mb-2">The information you have provided will be visible to the myTomorrows team for reviewing.</p>
-            <p class="text-md text-center mb-2">In the meantime, if you have any questions, please reach out to: beta@mytomorrows.com</p>
-            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Access</Button>
-        </div>
+    
+    <section class="w-full p-6 mb-6 flex flex-col bg-white rounded-xl shadow-lg">
+            <!-- Center all items in div -->
+            <div class="flex flex-col">
+            <h3 class="text-2xl font-bold mb-4 text-blue-500">Request Enrollment Support</h3>
+            <P class="mb-2">Here are the next steps to access the trial you selected:</P>
+            <ol class="list-decimal text-black ml-6">
+                <li class="mt-2">The myTomorrows team will be notified of your request to access the selected trial and will provide you with next steps of the enrolment request.</li>
+                <li class="mt-2">The information you have provided will be visible to the myTomorrows team for reviewing.</li>
+                <li class="mt-2">In the meantime, if you have any questions, please reach out to: beta@mytomorrows.com</li>
+            </ol>
+            </div>
+            <Button class="mt-4" on:click={() => (hidden1 = false)}>Request Enrollment Support</Button>
     </section>
+
     <section class="w-full p-6 mb-6 bg-white">
         <h2 class="text-2xl font-bold mb-4 text-blue-600">Trial Locations</h2>
         {#if isLoading}
             <Skeleton class="mb-4"/>
         {:else}
         <div class="flex w-full">
-            <DataTable data={data.locatedAt}/>
+            <DataTable data={sites}/>
         </div>
         {/if}
     </section>

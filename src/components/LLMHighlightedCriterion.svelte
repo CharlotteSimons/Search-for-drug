@@ -1,8 +1,6 @@
 <script>
     import { Badge } from "flowbite-svelte";
     export let criterion;
-
-    let collapsed = true;
 </script>
 <li>
     {#if criterion.answer === null}
@@ -10,22 +8,27 @@
         <span>{criterion.criteria}</span>
         </div>
     {:else}
-        <div class="bg-white p-2 rounded-md mb-1 hover:cursor-pointer" on:click={() => collapsed = !collapsed}>
-            <span><strong>{criterion.criteria}</strong></span>
-            <!-- Position criterion at bottom right of div -->
-            {#if criterion.answer === true}
-                <span class="ml-1 p-1 text-sm text-white bg-green-500 rounded-sm" >Yes</span><br>
-            {:else if criterion.answer === false}
-                <span class="ml-1 p-1 text-sm text-white bg-red-500 rounded-sm">No</span><br>
-            {:else}
-                <span class="ml-1 p-1 text-sm text-white bg-gray-400 rounded-sm">Unknown</span><br>
-            {/if}
-            <!-- Collapsable -->
-            {#if !collapsed}
-            <div class="p-1 bg-slate-50 rounded-md">
-                <span class="italic text-sm"><strong>✨ Reasoning by AI:</strong>{criterion.explanation}</span>
+        {#if criterion.answer === true}
+            <div class="bg-green-100 px-2 py-1 rounded-md mb-2 hover:cursor-pointer">
+            <span class="font-semibold">{criterion.criteria}</span>
+            <div class="p-1 px-2 bg-white rounded-md mt-2 mb-1 text-gray-600">
+                <span class="text-md"><strong>AI:</strong>{criterion.explanation}</span>
             </div>
-            {/if}
         </div>
+        {:else if criterion.answer === false}
+            <div class="bg-red-100 px-2 py-1 rounded-md mb-2 hover:cursor-pointer">
+            <span class="font-semibold">{criterion.criteria}</span>
+            <div class="p-1 px-2 bg-white rounded-md mt-2 mb-1 text-gray-600">
+                <span class="text-md"><strong>AI:</strong>{criterion.explanation}</span>
+            </div>
+        </div>
+        {:else}
+            <div class="bg-gray-100 px-2 py-1 rounded-md mb-2 hover:cursor-pointer">
+            <span class="font-semibold">{criterion.criteria}</span>
+            <div class="p-1 px-2 bg-white rounded-md mt-2 mb-1 text-gray-600">
+                <span class="text-md"><strong>AI:</strong>{criterion.explanation}</span>
+            </div>
+        </div>
+        {/if}
     {/if}
 </li>

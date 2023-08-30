@@ -76,60 +76,6 @@
         }
     }, 2000);
 
-    let reviewing = false;
-    function review() {
-        let current_review = to_review[current_review_index];
-        current_review.human_answer = human_answer;
-        reviewing = true;
-        fetch(PUBLIC_SEARCH_API_BASE + '/v01/llm/review_tsr',
-                  {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ 
-                uuid: uuid,
-                review_type: "criteria",
-                review: current_review
-              })
-            })
-            .then(response => {
-              if (response.status > 300) {
-              // Load the response body as JSON, throw body.message as error
-                return response.json().then(body => {
-                  return Promise.reject(new Error(body.error));
-                });
-              } else {
-                return response;
-              }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (current_review_index < to_review.length - 1) {
-                    current_review_index = current_review_index + 1;
-                    human_answer = answerByInex(to_review[current_review_index].inex, false);
-                    reviewing = false;
-                } else {
-                    // Redirect to /llm/complete
-                    window.location.href = '/llm/results?uuid=' + uuid;
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert(error);
-            });
-    }
-
-    // hcp.user.session.token check if the user is logged in
-    onMount(() => {
-    if (sessionStorage['hcp.user.session.token'] == null) {
-      console.log('User is not logged in')
-      window.location.href = '/';
-    } else {
-      token = sessionStorage['hcp.user.session.token'];
-    }
-    })
-
 </script>
 <div class="max-w-5xl mx-auto">
   <!-- Heading section -->

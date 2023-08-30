@@ -18,7 +18,7 @@
             },
             body: JSON.stringify({ 
             uuid: uuid,
-            token: sessionStorage['hcp.user.session.token']
+            token: localStorage['hcp.user.session.token']
             })
         })
         // Check if status_code > 300
@@ -54,10 +54,6 @@
     onMount(() => {
         uuid = $page.url.searchParams.get('uuid');
         if (!uuid) {
-            window.location.href = '/';
-        }
-        if (sessionStorage['hcp.user.session.token'] == null) {
-            alert('You are not logged in. Please log in and click the link again.')
             window.location.href = '/';
         } else {
             redirectLLM();
