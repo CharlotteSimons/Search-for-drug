@@ -189,17 +189,17 @@
 <div class="max-w-3xl mx-auto my-8 bg-white p-8 rounded-lg">
     <section class="mb-6">
     <Heading tag="h1" customSize="text-3xl font-extrabold" class="mb-6">Request Form:<br> Pre-approval treatment option overviews</Heading>
-    <P>Please complete one form for each patient. After completion of all forms, you can submit the full batch at once.</P>
+    <P>Please complete one form for each patient. When you are done, you can submit all forms at once using the "Request x overviews" button.</P>
     </section>
     <div class="w-full h-0 border border-gray-100 my-6"></div>
     <section>
     <Heading tag="h2" customSize="text-2xl font-bold" class="my-4">Complete patient profile</Heading>
     <form on:submit|preventDefault={() => submitForm()}>
         <Alert color="red" class="mt-4 mb-6">
-          <span class="font-bold">Warning</span> Do not include data that allows identification of the patient; e.g. their name or date of birth, or very specific medical data.
+          <span class="font-bold">Warning</span> Strictly avoid including any data, whether numeric or alphanumeric, that could lead to the identification of the patient. This includes, but is not limited to, names, dates of birth, and highly specific medical information.
         </Alert>
     <div class="mb-6">
-        <Label class ="block mb-2">Patient Identifier *</Label>
+        <Label class ="block mb-2">Pseudonymous Patient Identifier *</Label>
         <Input bind:value={form.patient_id} placeholder="ID0123456789" required/>
         <Helper class="mt-1">Do not use personal identifiable identifiers like date of birth.</Helper>
     </div>
