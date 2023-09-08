@@ -121,7 +121,7 @@
     <Button color="alternative" on:click={() => {defaultModal = false;}} disabled={loading}>No, cancel</Button>
     {#if show_success}
       <div class="mt-4">
-        <p class="text-blue-500 text-sm">Request successful; You will receive a download link shortly.</p>
+        <p class="text-blue-500 text-sm">Request successful; you will receive a download link shortly.</p>
       </div>
     {/if}
   </div>
