@@ -4,6 +4,7 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import { PUBLIC_SEARCH_API_BASE } from '$env/static/public';
+  import DownloadButton from '../../../components/DownloadButton.svelte';
 
   let medical_profile = null;
   let trialsearch_ai = null;
@@ -151,10 +152,21 @@
   </section>
   <section class="my-6">
     {#if trials_initialised}
-    <h3 class="text-2xl font-bold mb-4">{eligibleStudies.length + ineligibleStudies.length} results for {medical_profile.condition} in {medical_profile.country}</h3>
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-2xl font-bold mb-4">{eligibleStudies.length + ineligibleStudies.length} results for {medical_profile.condition} in {medical_profile.country}</h3>
+      <DownloadButton
+        patient_id={uuid}
+        eligible={eligible}
+        ineligible={ineligible}
+        country={medical_profile.country}
+        disease={medical_profile.condition}
+        medical_summary={medical_profile.profile}
+      />
+    </div>
     {/if}
+    <!-- Medical Profile Section -->
     {#if medical_profile}
-    <div class="p-4 bg-white shadow-md rounded-md">
+    <div class="p-4 bg-white shadow-md rounded-sm">
       <div>
         <h3 class="font-bold mb-2">Medical Profile</h3>
         <span>{medical_profile.gender} aged {medical_profile.age}.</span>
@@ -162,6 +174,7 @@
       </div>
     </div>
     {/if}
+
   </section>
   <div class="mt-6">
     <Tabs contentClass="bg-gray-50 rounded-lg dark:bg-gray-800 mt-4">
