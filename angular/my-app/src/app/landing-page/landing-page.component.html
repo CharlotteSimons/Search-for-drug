@@ -1,0 +1,31 @@
+<div class="max-w-5xl mx-auto">
+  <!-- Heading section -->
+  
+  <section class="text-center my-8">
+    <h1 class="text-xl font-bold">AI-supported searching and pre-screening of clinical trials & expanded access programs</h1>
+  </section>
+
+  <!-- Form fields column -->
+  <div>
+    <div class="mb-4">
+      <h3 class="font-bold mb-2">
+        Patient Information
+      </h3>
+        <label class="mb-2" for="field1">
+          Medical Condition *
+        </label>
+        <app-search-autocomplete [(selectedValue)]="selectedCondition"></app-search-autocomplete>
+      </div>
+      <div class="mb-4">
+        <label class="mb-2" for="field2">
+          Country *
+        </label>
+        <app-country-autocomplete [(selectedValue)]="selectedCountry"></app-country-autocomplete>
+      </div>
+  </div>
+
+  <!-- Button section -->
+  <div>
+    <button (click)="request_tsr()" [disabled]="!searchEnabled()">Search</button>
+  </div>
+</div>

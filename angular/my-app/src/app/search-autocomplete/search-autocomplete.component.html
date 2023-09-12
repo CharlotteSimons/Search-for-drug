@@ -1,0 +1,15 @@
+<div class="search-autocomplete">
+    <input type="text" 
+           [(ngModel)]="value" 
+           (input)="handleInput($event)" 
+           placeholder="Search..." />
+  
+    <div *ngIf="showSuggestions && suggestions.length > 0">
+      <ul>
+        <li *ngFor="let suggestion of suggestions" 
+            (click)="handleSelect(suggestion)">
+          {{ suggestion }}
+        </li>
+      </ul>
+    </div>
+  </div>
