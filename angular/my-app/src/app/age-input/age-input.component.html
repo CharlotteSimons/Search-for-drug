@@ -1,0 +1,14 @@
+<div class="mb-4">
+    <input
+      class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white"
+      id="field3"
+      type="number"
+      min="0"
+      placeholder="Age"
+      [(ngModel)]="age"
+      (blur)="validateAge()"
+    />
+    <div *ngIf="!ageValid" class="mt-2 text-red-500">
+      <span class="font-medium">*Please input the age.</span>
+    </div>
+  </div>

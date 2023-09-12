@@ -1,0 +1,12 @@
+<div class="flex flex-col items-center justify-center h-screen/2">
+    <div class="relative w-192 h-120 overflow-hidden rounded-lg shadow-lg">
+        <ng-container *ngFor="let image of images; index as i">
+            <img *ngIf="i === currentImageIndex" class="w-full h-full object-cover" [src]="image" [alt]="'Image ' + i">
+        </ng-container>
+    </div>
+    <button (click)="nextImage()" class="mt-4 text-green-700 bg-white hover:bg-gray-100 font-bold rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+    </button>
+</div>

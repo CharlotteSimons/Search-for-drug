@@ -16,13 +16,19 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { SearchAutocompleteComponent } from './search-autocomplete/search-autocomplete.component';
 import { CountryAutocompleteComponent } from './country-autocomplete/country-autocomplete.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { MedicalProfileComponent } from './medical-profile/medical-profile.component';
+import { AgeInputComponent } from './age-input/age-input.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     SearchAutocompleteComponent,
-    CountryAutocompleteComponent
+    CountryAutocompleteComponent,
+    CarouselComponent,
+    MedicalProfileComponent,
+    AgeInputComponent
   ],
   imports: [
     BrowserModule,
