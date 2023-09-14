@@ -29,16 +29,13 @@
       </div>
     </div>
 
-    <!-- Button section -->
-    <div class="flex justify-center items-center">
+    <div class="flex flex-col justify-center items-center space-y-4">
       <button (click)="request_tsr()" [disabled]="!searchEnabled()" class="bg-green-700 hover:bg-green-500 text-white font-bold rounded py-2 px-4">
         Search
       </button>
-    </div>
-
-    <!-- Carousel component -->
-    <div class="mt-10">
-      <app-carousel></app-carousel>
+      <button routerLink="/carousel" class="bg-white hover:bg-gray-100 text-green-700 font-bold rounded py-2 px-4">
+        Learn more
+      </button>
     </div>
 
   </div>

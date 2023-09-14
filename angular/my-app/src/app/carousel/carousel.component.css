@@ -1,8 +1,12 @@
-.hide-scrollbar {
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
-  }
-  
-  .hide-scrollbar::-webkit-scrollbar {
-    width: 0px; /* For Chrome, Safari, and Opera */
-  }
+.image-text {
+  width: 100%; /* Increase width to make the text box bigger */
+  font-size: 1.5em;
+  resize: none;
+  text-align: center;
+  min-height: 100em; /* Set a minimum height to make the text box bigger */
+  border: 2px solid #000; 
+  border-radius: 10px; 
+  background-color: #f9f9f9; 
+  padding: 100px; /* Increase padding to make the text box bigger */
+  overflow: hidden; /* Prevent scrolling in the text box */
+}
