@@ -24,22 +24,19 @@ export class SearchAutocompleteComponent {
 
   constructor(private http: HttpClient) {}
 
-  // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }
 
   ngOnInit(): void {
     this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
       debounceTime(300),
-
-      // ignore new term if same as previous term
       distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
       switchMap((term: string) => this.fetchSuggestions(term)),
-    ).subscribe(suggestions => this.suggestions = suggestions);
+    ).subscribe(suggestions => {
+      this.suggestions = suggestions;
+      console.log('Updated suggestions:', this.suggestions);
+    });
   }
 
   handleInput(event: any): void {
@@ -66,6 +63,7 @@ export class SearchAutocompleteComponent {
       .toPromise()
       .then(response => {
         if (response && response.data) {
+          console.log('Search Autocomplete Response:', response.data.autoComplete.map(item => item.alias));
           return response.data.autoComplete.map(item => item.alias);
         } else {
           throw new Error('Response or response data is undefined');
@@ -75,5 +73,5 @@ export class SearchAutocompleteComponent {
         alert('Something went wrong. Please try again later.');
         return [];
       });
-    }
+  }
 }

@@ -17,7 +17,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { SearchAutocompleteComponent } from './search-autocomplete/search-autocomplete.component';
 import { CountryAutocompleteComponent } from './country-autocomplete/country-autocomplete.component';
-import { CarouselComponent } from './carousel/carousel.component';
+import { EducationComponent } from './education/education.component';
 import { MedicalProfileComponent } from './medical-profile/medical-profile.component';
 import { AgeInputComponent } from './age-input/age-input.component';
 
@@ -27,9 +27,13 @@ import { AgeInputComponent } from './age-input/age-input.component';
     LandingPageComponent,
     SearchAutocompleteComponent,
     CountryAutocompleteComponent,
-    CarouselComponent,
+    EducationComponent,
     MedicalProfileComponent,
     AgeInputComponent
+  ],
+  exports: [
+    SearchAutocompleteComponent,
+    CountryAutocompleteComponent
   ],
   imports: [
     BrowserModule,

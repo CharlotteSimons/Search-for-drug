@@ -24,7 +24,6 @@ export class CountryAutocompleteComponent {
 
   constructor(private http: HttpClient) {}
 
-  // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }
@@ -34,7 +33,10 @@ export class CountryAutocompleteComponent {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => this.fetchSuggestions(term)),
-    ).subscribe(suggestions => this.suggestions = suggestions);
+    ).subscribe(suggestions => {
+      this.suggestions = suggestions;
+      console.log('Updated suggestions:', this.suggestions);
+    });
   }
 
   handleInput(event: any): void {
@@ -53,11 +55,12 @@ export class CountryAutocompleteComponent {
   }
 
   fetchSuggestions(query: string) {
-    const queryStr = `query {countryAutoComplete(substring: "${query}")}`
+    const queryStr = `query {countryAutoComplete(substring: "${query}")}`;
     return this.http.post<GraphQLResponse>('https://enterprise-search.mytomorrows.com/gql/graphql', { query: queryStr })
       .toPromise()
       .then(response => {
         if (response && response.data) {
+          console.log('Country Autocomplete Response:', response.data.countryAutoComplete);
           return response.data.countryAutoComplete;
         } else {
           throw new Error('Response or response data is undefined');
